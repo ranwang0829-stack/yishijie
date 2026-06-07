@@ -3,10 +3,13 @@ name: Isekai Daily Scheduler
 on:
   schedule:
     # 每2小时运行一次 (UTC时间)
-    # 北京时间: 7:00/9:00/11:00/13:00/15:00/17:00/19:00/21:00
+    # 北京时间: 5:00/7:00/9:00/11:00/13:00/15:00/17:00/19:00/21:00/23:00
     - cron: "0 */2 * * *"
   workflow_dispatch:
     # 允许手动触发
+  push:
+    # 首次推送时触发一次验证
+    branches: [main]
 
 jobs:
   run:
@@ -26,7 +29,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install requests schedule --quiet
+        run: pip install requests --quiet
 
       - name: Run Isekai Scheduler
         run: python run_once.py
@@ -39,7 +42,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No data changes to commit."
           else
-            git commit -m "Auto: scheduled task update [$(date +'%Y-%m-%d %H:%M UTC')]"
+            git commit -m "Auto: scheduled update [$(date +'%Y-%m-%d %H:%M UTC')]"
             git pull --rebase origin main
             git push origin main
           fi
