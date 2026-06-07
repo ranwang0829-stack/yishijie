@@ -154,16 +154,169 @@ def push_bedtime_story() -> bool:
     return True
 
 
+def push_npc_spotlight() -> bool:
+    """Push a random NPC spotlight from npcs.json."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    from .config import load_json as _lj
+    npcs = _lj("npcs.json")
+    if not npcs:
+        return False
+
+    npc = random.choice(npcs)
+    facts = npc.get("known_facts", [])
+    fact_text = "\n".join(f"  • {f}" for f in facts[:3]) if facts else "  神秘の人物..."
+
+    msg = (
+        f"👤 NPC图鉴：{npc['name']}\n\n"
+        f"📍 出没地点：{npc.get('location', '未知')}\n"
+        f"📝 已知情报：\n{fact_text}\n\n"
+        f"💬 上次相遇：{npc.get('last_interaction', '尚未相遇')}"
+    )
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify(f"NPC: {npc['name']}", msg)
+    get_voice().say(f"NPC图鉴：{npc['name']}，出没于{npc.get('location', '')}", event="fun_content")
+    return True
+
+
+def push_place_discovery() -> bool:
+    """Push a random place discovery from places.json."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    from .config import load_json as _lj
+    places = _lj("places.json")
+    if not places:
+        return False
+
+    place = random.choice(places)
+    npcs = ", ".join(place.get("known_npcs", [])) or "暂无"
+    dist = place.get("distance_m", 0)
+    dist_text = f"{dist}m" if dist > 0 else "你所在の位置"
+
+    type_emoji = {"cafe": "☕", "park": "🌳", "office": "🏢", "shop": "🛒", "discovered": "🗺"}
+    emoji = type_emoji.get(place.get("type", ""), "📍")
+
+    msg = (
+        f"{emoji} 地点发现：{place['name']}\n\n"
+        f"🏷 类型：{place.get('type', '未知')}\n"
+        f"📏 距离：{dist_text}\n"
+        f"👥 已知NPC：{npcs}\n"
+        f"📝 备注：{place.get('memo', '等待探索')}"
+    )
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify(f"Place: {place['name']}", msg)
+    get_voice().say(f"地点发现：{place['name']}，距离{dist_text}", event="fun_content")
+    return True
+
+
+def push_micro_quest() -> bool:
+    """Push a random micro quest (5-min optional challenge)."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    words = load_json("anime_words.json")
+    quests = words.get("micro_quests", ["今日修行：做一件让自己微笑的小事。"])
+    quest = random.choice(quests)
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify("Micro Quest", quest)
+    get_voice().say(quest[:60], event="fun_content")
+    return True
+
+
+def push_life_tip() -> bool:
+    """Push a life tip in anime style."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    words = load_json("anime_words.json")
+    tips = words.get("life_tips", ["勇者の知恵：多喝水，早睡觉。"])
+    tip = random.choice(tips)
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify("Life Tip", tip)
+    get_voice().say(tip[:60], event="fun_content")
+    return True
+
+
+def push_anime_quote() -> bool:
+    """Push an anime-style inspirational quote."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    words = load_json("anime_words.json")
+    quotes = words.get("anime_quotes", ["「每一天都是新的冒险。」—— 无名勇者"])
+    quote = random.choice(quotes)
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify("Anime Quote", quote)
+    get_voice().say(quote[:60], event="fun_content")
+    return True
+
+
+def push_kingdom_news() -> bool:
+    """Push a fictional kingdom news bulletin."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    words = load_json("anime_words.json")
+    news_list = words.get("kingdom_news", ["📰 王国快讯：今日宜探索，不宜宅家。"])
+    news = random.choice(news_list)
+
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+
+    notify("Kingdom News", news)
+    get_voice().say(news[:60], event="fun_content")
+    return True
+
+
 def push_random_fun() -> str:
-    """Push a random type of fun content (for manual trigger). Returns the type pushed."""
-    types = ["blessing", "encouragement", "fact"]
+    """Push a random type of fun content. Returns the type pushed."""
+    types = [
+        "blessing", "encouragement", "fact",
+        "npc", "place", "micro_quest",
+        "life_tip", "anime_quote", "kingdom_news",
+    ]
     chosen = random.choice(types)
 
     if chosen == "blessing":
         push_morning_blessing()
     elif chosen == "encouragement":
         push_encouragement()
-    else:
+    elif chosen == "fact":
         push_random_fact()
+    elif chosen == "npc":
+        push_npc_spotlight()
+    elif chosen == "place":
+        push_place_discovery()
+    elif chosen == "micro_quest":
+        push_micro_quest()
+    elif chosen == "life_tip":
+        push_life_tip()
+    elif chosen == "anime_quote":
+        push_anime_quote()
+    else:
+        push_kingdom_news()
 
     return chosen
