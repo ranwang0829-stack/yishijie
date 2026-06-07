@@ -131,6 +131,29 @@ def push_daily_report() -> bool:
     return True
 
 
+def push_bedtime_story() -> bool:
+    """Push an isekai-themed bedtime story (for late night)."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+
+    words = load_json("anime_words.json")
+    stories = words.get("bedtime_stories", [])
+    if not stories:
+        return False
+
+    story = random.choice(stories)
+    msg = f"🌙 {story['title']}\n\n{story['story']}"
+
+    from .notifier import notify
+    from .voice import get_voice
+
+    notify(f"Bedtime Story: {story['title']}", msg)
+    get_voice().say("", event="fun_content")  # Don't voice at night
+
+    return True
+
+
 def push_random_fun() -> str:
     """Push a random type of fun content (for manual trigger). Returns the type pushed."""
     types = ["blessing", "encouragement", "fact"]

@@ -102,7 +102,17 @@ def main() -> None:
         except Exception as e:
             print(f"[scheduler] 日报失败: {e}")
 
-    # ── 6. Daily cleanup (3:00-4:00) ──
+    # ── 6. Bedtime story (0:00) ──
+    if hour == 0:
+        try:
+            from core.fun_content import push_bedtime_story
+            print("[scheduler] 睡前故事推送...")
+            push_bedtime_story()
+            had_push = True
+        except Exception as e:
+            print(f"[scheduler] 睡前故事失败: {e}")
+
+    # ── 7. Daily cleanup (3:00-4:00) ──
     if hour == 3:
         removed = cleanup_old_expired(days=3)
         print(f"[scheduler] 清理了 {removed} 条过期任务。")
