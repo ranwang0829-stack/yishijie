@@ -25,9 +25,18 @@ def main() -> None:
     weekday = now.weekday()  # 0=Monday
     print(f"[scheduler] 运行时间: {now.strftime('%Y-%m-%d %H:%M')} 北京时间 (星期{weekday+1})")
 
+    # ── 0. Quiet hours check (2:00-8:00 → skip all pushes) ──
+    if 2 <= hour < 8:
+        print(f"[scheduler] 静默时段（2:00-8:00），跳过所有推送。")
+        # Only do cleanup during quiet hours
+        if hour == 3:
+            removed = cleanup_old_expired(days=3)
+            print(f"[scheduler] 清理了 {removed} 条过期任务。")
+        return
+
     had_push = False
 
-    # ── 1. Morning blessing (7:00-9:00) ──
+    # ── 1. Morning blessing (8:00-9:00) ──
     if 7 <= hour <= 9:
         try:
             from core.fun_content import push_morning_blessing
