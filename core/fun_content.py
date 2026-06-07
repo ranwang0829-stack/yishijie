@@ -23,7 +23,7 @@ def push_morning_blessing() -> bool:
     blessings = words.get("blessings", ["早安，勇者！"])
     blessing = random.choice(blessings)
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
     from .voice import get_voice
 
     notify("朝の祝福", blessing)
@@ -42,7 +42,7 @@ def push_encouragement() -> bool:
     encouragements = words.get("encouragements", ["今天也要加油！"])
     msg = random.choice(encouragements)
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
     from .voice import get_voice
 
     notify("冒险者の一言", msg)
@@ -63,7 +63,7 @@ def push_random_fact() -> bool:
 
     msg = f"📚 {fact['fact']}\n\n💬 {fact['anime']}"
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
     from .voice import get_voice
 
     notify("世界の豆知识", msg)
@@ -122,7 +122,7 @@ def push_daily_report() -> bool:
 
     msg = "\n".join(lines)
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
     from .voice import get_voice
 
     notify("勇者日报", msg)
@@ -145,7 +145,7 @@ def push_bedtime_story() -> bool:
     story = random.choice(stories)
     msg = f"🌙 {story['title']}\n\n{story['story']}"
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
     from .voice import get_voice
 
     notify(f"Bedtime Story: {story['title']}", msg)

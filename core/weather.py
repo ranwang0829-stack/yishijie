@@ -130,7 +130,7 @@ def push_weather(force_city: str = "") -> bool:
 
     msg = format_weather_anime(data, city)
 
-    from .notifier import notify
+    from .notifier import notify_sync as notify
 
     notify(f"王国天气 - {city}", msg)
 

@@ -89,11 +89,22 @@ def send_desktop(title: str, message: str) -> bool:
 
 
 def notify(title: str, message: str, priority: str = "default") -> None:
-    """Send both ntfy and desktop notifications (fire-and-forget in thread)."""
+    """Send both ntfy and desktop notifications (fire-and-forget in thread).
+    Use notify_sync() for one-shot scripts to ensure delivery before exit."""
+    notify_sync(title, message, priority, threaded=True)
 
-    def _run() -> None:
-        send_ntfy(title, message, priority)
+
+def notify_sync(title: str, message: str, priority: str = "default", threaded: bool = False) -> bool:
+    """Send notifications. When threaded=False, blocks until ntfy completes.
+    Returns True if ntfy was sent successfully."""
+    if threaded:
+        def _run() -> None:
+            send_ntfy(title, message, priority)
+            send_desktop(title, message)
+        t = threading.Thread(target=_run, daemon=True)
+        t.start()
+        return True
+    else:
+        ok = send_ntfy(title, message, priority)
         send_desktop(title, message)
-
-    t = threading.Thread(target=_run, daemon=True)
-    t.start()
+        return ok
