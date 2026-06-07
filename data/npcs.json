@@ -1,0 +1,68 @@
+[
+  {
+    "name": "咖啡师小王",
+    "location": "星尘咖啡馆",
+    "known_facts": ["喜欢拉花艺术", "在学吉他", "养了一只橘猫"],
+    "interaction_templates": [
+      "点一杯{drink}，顺便夸赞今天的拉花",
+      "问小王最近吉他学得怎么样",
+      "聊聊橘猫的近况"
+    ],
+    "last_interaction": "2026-01-15"
+  },
+  {
+    "name": "常客老张",
+    "location": "星尘咖啡馆",
+    "known_facts": ["退休教师", "每天下午来看书", "对历史很有研究"],
+    "interaction_templates": [
+      "请教一个历史问题",
+      "分享最近读的一本书",
+      "聊聊最近的新闻时事"
+    ],
+    "last_interaction": "2026-01-10"
+  },
+  {
+    "name": "晨练李阿姨",
+    "location": "翠绿公园",
+    "known_facts": ["退休护士", "太极拳爱好者", "热心社区事务"],
+    "interaction_templates": [
+      "跟着做一组太极拳动作",
+      "问候李阿姨的健康状况",
+      "聊聊社区最近的活动"
+    ],
+    "last_interaction": "2026-01-20"
+  },
+  {
+    "name": "遛狗少年阿杰",
+    "location": "翠绿公园",
+    "known_facts": ["高中生", "养了一只柯基叫豆豆", "喜欢摄影"],
+    "interaction_templates": [
+      "夸豆豆可爱并请求摸摸",
+      "请教手机摄影技巧",
+      "聊聊学校生活"
+    ],
+    "last_interaction": "2026-01-18"
+  },
+  {
+    "name": "同事小美",
+    "location": "公司办公室",
+    "known_facts": ["设计师", "喜欢甜品", "最近在学日语"],
+    "interaction_templates": [
+      "带一份小点心分享",
+      "用刚学的日语打招呼",
+      "聊聊设计灵感的来源"
+    ],
+    "last_interaction": "2026-01-22"
+  },
+  {
+    "name": "店主老孙",
+    "location": "阳光便利店",
+    "known_facts": ["退伍军人", "喜欢下象棋", "有两个孙子"],
+    "interaction_templates": [
+      "买东西时闲聊几句",
+      "问老孙要不要来一局象棋",
+      "聊聊孙子们的趣事"
+    ],
+    "last_interaction": "2026-01-19"
+  }
+]

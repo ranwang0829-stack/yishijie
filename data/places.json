@@ -1,0 +1,30 @@
+[
+  {
+    "name": "星尘咖啡馆",
+    "type": "cafe",
+    "distance_m": 300,
+    "known_npcs": ["咖啡师小王", "常客老张"],
+    "memo": "楼下转角，WiFi好，适合轻办公"
+  },
+  {
+    "name": "翠绿公园",
+    "type": "park",
+    "distance_m": 800,
+    "known_npcs": ["晨练李阿姨", "遛狗少年阿杰"],
+    "memo": "有湖和长椅，周末人多"
+  },
+  {
+    "name": "公司办公室",
+    "type": "office",
+    "distance_m": 0,
+    "known_npcs": ["同事小美", "老板刘总", "前台周姐"],
+    "memo": "日常办公场所"
+  },
+  {
+    "name": "阳光便利店",
+    "type": "shop",
+    "distance_m": 150,
+    "known_npcs": ["店主老孙"],
+    "memo": "24小时，种类齐全"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "story_001",
+    "title": "失落的魔导书",
+    "type": "knowledge",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "图书馆的线索",
+        "backstory": "你听说镇上图书馆有一本古老的书籍，据说记载了失传已久的「微笑魔法」。一位戴着圆框眼镜的图书管理员可能知道些什么。",
+        "likely_appearance": "戴着圆框眼镜，通常在图书馆文史区活动",
+        "suggested_opener": "向管理员打听那本「关于微笑的古书」",
+        "minimum_interaction": "进行至少2分钟的对话",
+        "reward_exp": 30,
+        "reward_gold": 20,
+        "unlock_condition": null
+      },
+      {
+        "chapter": 2,
+        "title": "咖啡馆的密码",
+        "backstory": "古书的线索指向一间名为「星尘」的咖啡馆。据说那里的一位常客知道解读古书密码的方法。",
+        "likely_appearance": "坐在咖啡馆角落、面前放着一本厚书的人",
+        "suggested_opener": "询问对方是否知道「星尘密码」的传说",
+        "minimum_interaction": "请对方喝一杯咖啡并交谈5分钟",
+        "reward_exp": 50,
+        "reward_gold": 30,
+        "unlock_condition": "完成第1章后，在咖啡馆区域触发"
+      },
+      {
+        "chapter": 3,
+        "title": "最终启示",
+        "backstory": "原来微笑魔法一直存在于你的日常之中——每一次真诚的问候和善意的举动，都是魔法的闪光。你需要将这份领悟传递给另一个人。",
+        "likely_appearance": "任何愿意倾听的人",
+        "suggested_opener": "分享你学到的「微笑魔法」故事",
+        "minimum_interaction": "对一个人微笑并得到回应",
+        "reward_exp": 100,
+        "reward_gold": 50,
+        "unlock_condition": "完成第2章后自动解锁"
+      }
+    ]
+  },
+  {
+    "id": "story_002",
+    "title": "猫之信使",
+    "type": "mystery",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "公园的邂逅",
+        "backstory": "一只脖子上挂着奇怪吊坠的猫出现在翠绿公园。吊坠上刻着意义不明的符号。你需要找到猫的主人解开谜团。",
+        "likely_appearance": "一只橘猫，戴着银色吊坠，下午时分在公园长椅附近出没",
+        "suggested_opener": "轻轻靠近猫，观察吊坠上的符号",
+        "minimum_interaction": "拍下吊坠符号的照片",
+        "reward_exp": 25,
+        "reward_gold": 15,
+        "unlock_condition": null
+      },
+      {
+        "chapter": 2,
+        "title": "符号的含义",
+        "backstory": "符号似乎是某种本地暗号。你需要向社区里的老人打听这个符号的来历。",
+        "likely_appearance": "社区中心或公园里年纪较大、看起来对本地很熟悉的人",
+        "suggested_opener": "展示吊坠照片，询问符号的含义",
+        "minimum_interaction": "获得至少一个人的回答",
+        "reward_exp": 40,
+        "reward_gold": 25,
+        "unlock_condition": "完成第1章后，在公园或社区区域触发"
+      },
+      {
+        "chapter": 3,
+        "title": "信使的真相",
+        "backstory": "原来这只猫属于一位独居的老奶奶，吊坠是她已故老伴留下的信物。猫每天都会去公园，像是在等待什么。你的任务是找到老奶奶，告诉她猫很安全。",
+        "likely_appearance": "住在本社区、养猫的独居老人",
+        "suggested_opener": "询问是否认识一只戴吊坠的橘猫",
+        "minimum_interaction": "帮助老奶奶，陪她聊10分钟",
+        "reward_exp": 80,
+        "reward_gold": 40,
+        "unlock_condition": "完成第2章后自动解锁"
+      }
+    ]
+  },
+  {
+    "id": "story_003",
+    "title": "勇者的修行道",
+    "type": "skill",
+    "chapters": [
+      {
+        "chapter": 1,
+        "title": "勇气试炼",
+        "backstory": "修行道的第一个考验：在一天之内向三个陌生人微笑并得到回应。这是打开心扉的第一步。",
+        "likely_appearance": "任何你在日常生活中遇到的人",
+        "suggested_opener": "对遇到的人露出自然的微笑",
+        "minimum_interaction": "对3个陌生人微笑并得到回应",
+        "reward_exp": 20,
+        "reward_gold": 10,
+        "unlock_condition": null
+      },
+      {
+        "chapter": 2,
+        "title": "观察试炼",
+        "backstory": "第二关：找到一个你平时从未留意过的细节——可能是一朵花、一块招牌、或一扇窗户上的图案。修行者必须学会观察世界。",
+        "likely_appearance": "隐藏在熟悉街道上的未知细节",
+        "suggested_opener": "放慢脚步，仔细观察周围的每一个角落",
+        "minimum_interaction": "用文字或照片记录一个从未注意过的细节",
+        "reward_exp": 30,
+        "reward_gold": 15,
+        "unlock_condition": "完成第1章后自动解锁"
+      },
+      {
+        "chapter": 3,
+        "title": "分享试炼",
+        "backstory": "最终试炼：将你发现的美好细节分享给一个人，并与ta交流彼此眼中的世界。",
+        "likely_appearance": "任何愿意交谈的人",
+        "suggested_opener": "展示你拍下的细节照片，问问对方有没有类似的发现",
+        "minimum_interaction": "完成一次3分钟以上的分享对话",
+        "reward_exp": 60,
+        "reward_gold": 30,
+        "unlock_condition": "完成第2章后自动解锁"
+      }
+    ]
+  }
+]

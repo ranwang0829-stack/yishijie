@@ -1,0 +1,36 @@
+{
+  "ntfy_topic": "yishijie",
+  "ntfy_server": "https://ntfy.sh",
+  "use_osm_api": false,
+  "voice": {
+    "enabled": true,
+    "engine": "pyttsx3",
+    "rate": 150,
+    "volume": 1.0,
+    "voice_id": "",
+    "event_filters": [
+      "new_task",
+      "task_expiring",
+      "task_complete",
+      "level_up",
+      "storyline_chapter",
+      "weather",
+      "fun_content"
+    ]
+  },
+  "idle_windows": [
+    "12:00-13:30",
+    "18:00-19:00"
+  ],
+  "daemon": {
+    "check_interval_minutes": 120,
+    "push_if_tasks_less_than": 2
+  },
+  "weather": {
+    "enabled": true,
+    "city": "Changchun"
+  },
+  "fun_content": {
+    "enabled": true
+  }
+}

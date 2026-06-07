@@ -1,0 +1,12 @@
+{
+  "level": 1,
+  "exp": 0,
+  "gold": 50,
+  "title": "见习勇者",
+  "current_hp": 100,
+  "mood": 3,
+  "available_minutes": 60,
+  "max_walk_distance": 2000,
+  "social_courage": 3,
+  "blockers": []
+}

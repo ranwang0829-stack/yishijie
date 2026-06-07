@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人主页</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --surface-2: #1a1f2e;
+    --border: #1e2a3a;
+    --text: #c8d6e5;
+    --text-muted: #6b7d95;
+    --accent: #00d4aa;
+    --accent-2: #4dabf7;
+    --gradient: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ---- grid background ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- nav ---- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(10,14,20,.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  nav .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  nav .links { display: flex; gap: 28px; list-style: none; }
+  nav .links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: .9rem;
+    transition: color .2s;
+  }
+  nav .links a:hover { color: var(--accent); }
+
+  /* ---- sections ---- */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 100px 24px;
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    min-height: 100vh;
+    padding-top: 140px;
+    padding-bottom: 80px;
+  }
+  .hero .text { flex: 1; }
+  .hero .greeting {
+    font-size: .9rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero h1 .highlight {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 420px;
+    margin-bottom: 32px;
+  }
+  .hero .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero .tag {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: .82rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: .2s;
+  }
+  .hero .tag:hover { border-color: var(--accent); color: var(--accent); }
+  .hero .avatar-wrap { flex-shrink: 0; }
+  .hero .avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    box-shadow: 0 0 60px rgba(0,212,170,.2);
+  }
+
+  /* ---- section title ---- */
+  .sec-title {
+    font-size: .82rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .sec-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  /* ---- about ---- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    transition: .25s;
+  }
+  .about-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .about-card .icon {
+    font-size: 1.5rem;
+    margin-bottom: 14px;
+  }
+  .about-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    color: #e4ecf7;
+  }
+  .about-card p { font-size: .9rem; color: var(--text-muted); }
+  .about-card.full { grid-column: 1 / -1; }
+
+  /* ---- timeline ---- */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 28px; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(0,212,170,.5);
+  }
+  .timeline-item .time { font-size: .8rem; color: var(--accent); margin-bottom: 2px; }
+  .timeline-item h4 { font-size: .95rem; }
+  .timeline-item p { font-size: .85rem; color: var(--text-muted); }
+
+  /* ---- skills ---- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
+  .skill-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+    font-size: .88rem;
+    transition: .2s;
+  }
+  .skill-item:hover { border-color: var(--accent-2); }
+  .skill-item .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: var(--accent);
+  }
+
+  /* ---- contact / QR ---- */
+  .contact-row {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+  }
+  .contact-info { flex: 1; }
+  .contact-info .item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: .93rem;
+  }
+  .contact-info .item .label { color: var(--text-muted); min-width: 56px; }
+  .contact-info .item .val { color: #e4ecf7; }
+  .qr-box {
+    flex-shrink: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .qr-box .qr-code {
+    width: 140px;
+    height: 140px;
+    background: #fff;
+    border-radius: 8px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .qr-box .qr-code svg { width: 120px; height: 120px; }
+  .qr-box .qr-label { font-size: .82rem; color: var(--text-muted); }
+
+  /* ---- footer ---- */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: .82rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- responsive ---- */
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column-reverse;
+      text-align: center;
+      padding-top: 120px;
+      min-height: auto;
+    }
+    .hero .subtitle { margin: 0 auto 32px; }
+    .hero .tags { justify-content: center; }
+    .hero h1 { font-size: 2.4rem; }
+    .hero .avatar { width: 130px; height: 130px; font-size: 2.5rem; }
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: center; }
+    .skills-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    nav .links { gap: 16px; }
+    nav .links a { font-size: .82rem; }
+    .sec-heading { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- nav -->
+<nav>
+  <div class="inner">
+    <span class="logo">&lt;Portfolio /&gt;</span>
+    <ul class="links">
+      <li><a href="#about">关于</a></li>
+      <li><a href="#experience">经历</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#contact">联系</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- hero -->
+<section class="hero">
+  <div class="text">
+    <p class="greeting">Hello, World</p>
+    <h1>你好，我是<br><span class="highlight">前端工程师</span></h1>
+    <p class="subtitle">
+      专注于构建高性能、优雅的 Web 应用。追求代码质量与用户体验的完美平衡。
+    </p>
+    <div class="tags">
+      <span class="tag">React</span>
+      <span class="tag">Vue.js</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">UI/UX</span>
+    </div>
+  </div>
+  <div class="avatar-wrap">
+    <div class="avatar">👨‍💻</div>
+  </div>
+</section>
+
+<!-- about -->
+<section id="about">
+  <p class="sec-title">01 / About</p>
+  <h2 class="sec-heading">关于我</h2>
+  <div class="about-grid">
+    <div class="about-card">
+      <div class="icon">🎯</div>
+      <h3>专业方向</h3>
+      <p>深耕前端开发，擅长 React / Vue 生态，对工程化、性能优化有丰富实践经验。</p>
+    </div>
+    <div class="about-card">
+      <div class="icon">💡</div>
+      <h3>工作理念</h3>
+      <p>代码即设计。注重组件化思维、可维护性和团队协作效率，追求极致的开发体验。</p>
+    </div>
+    <div class="about-card full">
+      <div class="icon">📝</div>
+      <h3>个人简介</h3>
+      <p>
+        我是一名热爱技术的前端工程师，拥有多年 Web 开发经验。从页面交互到工程架构，我始终关注前沿技术趋势，并乐于将新技术落地到实际项目中。工作之余，我喜欢参与开源社区、撰写技术博客，持续分享与学习。我相信，优秀的用户体验源于对细节的执着和对技术的敬畏。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- experience -->
+<section id="experience">
+  <p class="sec-title">02 / Experience</p>
+  <h2 class="sec-heading">工作经历</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time">2023 — 至今</div>
+      <h4>高级前端工程师 · XX科技</h4>
+      <p>负责核心产品前端架构设计与迭代，主导组件库建设及性能优化项目。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2020 — 2023</div>
+      <h4>前端工程师 · XX互娱</h4>
+      <p>参与多个 C 端产品的开发与维护，推动前端工程化落地及 CI/CD 流程优化。</p>
+    </div>
+    <div class="timeline-item">
+      <div class="time">2018 — 2020</div>
+      <h4>初级前端工程师 · XX信息</h4>
+      <p>负责后台管理系统开发，从零搭建中后台前端解决方案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- skills -->
+<section id="skills">
+  <p class="sec-title">03 / Skills</p>
+  <h2 class="sec-heading">技术栈</h2>
+  <div class="skills-grid">
+    <div class="skill-item"><span class="dot"></span>HTML5 / CSS3</div>
+    <div class="skill-item"><span class="dot"></span>JavaScript</div>
+    <div class="skill-item"><span class="dot"></span>TypeScript</div>
+    <div class="skill-item"><span class="dot"></span>React</div>
+    <div class="skill-item"><span class="dot"></span>Vue.js</div>
+    <div class="skill-item"><span class="dot"></span>Next.js</div>
+    <div class="skill-item"><span class="dot"></span>Node.js</div>
+    <div class="skill-item"><span class="dot"></span>Webpack</div>
+    <div class="skill-item"><span class="dot"></span>Vite</div>
+    <div class="skill-item"><span class="dot"></span>TailwindCSS</div>
+    <div class="skill-item"><span class="dot"></span>Git / CI/CD</div>
+    <div class="skill-item"><span class="dot"></span>Docker</div>
+  </div>
+</section>
+
+<!-- contact -->
+<section id="contact">
+  <p class="sec-title">04 / Contact</p>
+  <h2 class="sec-heading">联系方式</h2>
+  <div class="contact-row">
+    <div class="contact-info">
+      <div class="item"><span class="label">邮箱</span><span class="val">hello@example.com</span></div>
+      <div class="item"><span class="label">微信</span><span class="val">your_wechat_id</span></div>
+      <div class="item"><span class="label">GitHub</span><span class="val">github.com/yourname</span></div>
+      <div class="item"><span class="label">位置</span><span class="val">中国 · 北京</span></div>
+    </div>
+    <div class="qr-box">
+      <div class="qr-code">
+        <!-- 简易二维码图案 -->
+        <svg viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="29" height="29" fill="#fff"/>
+          <!-- Finder patterns -->
+          <rect x="1" y="1" width="7" height="1" fill="#000"/>
+          <rect x="1" y="1" width="1" height="7" fill="#000"/>
+          <rect x="7" y="1" width="1" height="7" fill="#000"/>
+          <rect x="2" y="2" width="3" height="3" fill="#000"/>
+          <rect x="1" y="6" width="7" height="1" fill="#000"/>
+          <rect x="6" y="1" width="1" height="7" fill="#000"/>
+          <!-- top-right finder -->
+          <rect x="21" y="1" width="7" height="1" fill="#000"/>
+          <rect x="21" y="1" width="1" height="7" fill="#000"/>
+          <rect x="27" y="1" width="1" height="7" fill="#000"/>
+          <rect x="22" y="2" width="3" height="3" fill="#000"/>
+          <rect x="21" y="6" width="7" height="1" fill="#000"/>
+          <rect x="26" y="1" width="1" height="7" fill="#000"/>
+          <!-- bottom-left finder -->
+          <rect x="1" y="21" width="7" height="1" fill="#000"/>
+          <rect x="1" y="21" width="1" height="7" fill="#000"/>
+          <rect x="7" y="21" width="1" height="7" fill="#000"/>
+          <rect x="2" y="22" width="3" height="3" fill="#000"/>
+          <rect x="1" y="26" width="7" height="1" fill="#000"/>
+          <rect x="6" y="21" width="1" height="7" fill="#000"/>
+          <!-- data modules -->
+          <rect x="10" y="1" width="1" height="1" fill="#000"/>
+          <rect x="14" y="1" width="1" height="1" fill="#000"/>
+          <rect x="17" y="1" width="1" height="1" fill="#000"/>
+          <rect x="10" y="4" width="1" height="1" fill="#000"/>
+          <rect x="14" y="4" width="1" height="1" fill="#000"/>
+          <rect x="12" y="7" width="1" height="1" fill="#000"/>
+          <rect x="16" y="7" width="1" height="1" fill="#000"/>
+          <rect x="10" y="9" width="1" height="1" fill="#000"/>
+          <rect x="14" y="9" width="1" height="1" fill="#000"/>
+          <rect x="18" y="9" width="1" height="1" fill="#000"/>
+          <rect x="10" y="12" width="1" height="1" fill="#000"/>
+          <rect x="16" y="11" width="1" height="1" fill="#000"/>
+          <rect x="11" y="14" width="1" height="1" fill="#000"/>
+          <rect x="15" y="14" width="1" height="1" fill="#000"/>
+          <rect x="18" y="13" width="1" height="1" fill="#000"/>
+          <rect x="10" y="16" width="1" height="1" fill="#000"/>
+          <rect x="13" y="16" width="1" height="1" fill="#000"/>
+          <rect x="17" y="16" width="1" height="1" fill="#000"/>
+          <rect x="11" y="19" width="1" height="1" fill="#000"/>
+          <rect x="15" y="19" width="1" height="1" fill="#000"/>
+          <rect x="18" y="19" width="1" height="1" fill="#000"/>
+          <rect x="10" y="21" width="1" height="1" fill="#000"/>
+          <rect x="14" y="21" width="1" height="1" fill="#000"/>
+          <rect x="17" y="21" width="1" height="1" fill="#000"/>
+          <rect x="10" y="24" width="1" height="1" fill="#000"/>
+          <rect x="14" y="24" width="1" height="1" fill="#000"/>
+          <rect x="12" y="27" width="1" height="1" fill="#000"/>
+          <rect x="16" y="27" width="1" height="1" fill="#000"/>
+        </svg>
+      </div>
+      <p class="qr-label">扫码添加微信</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 — Designed & Built with ❤️</p>
+</footer>
+
+</body>
+</html>

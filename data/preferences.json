@@ -1,0 +1,7 @@
+{
+  "dislike_topics": ["政治", "宗教", "负面新闻"],
+  "like_topics": ["科技", "动漫", "游戏", "美食", "音乐"],
+  "forbidden_actions": ["搭讪陌生人", "大声喧哗"],
+  "preferred_task_types": ["拍照", "微笑", "短对话", "探索", "观察"],
+  "reward_sensitive": true
+}

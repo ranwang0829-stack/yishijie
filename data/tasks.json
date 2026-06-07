@@ -1,0 +1,53 @@
+[
+  {
+    "id": "82b201a1",
+    "type": "photo",
+    "name": "委托 秘境 「公司办公室」 (心头一暖)",
+    "description": "在「公司办公室」找一个有趣的角落拍一张照片",
+    "condition": "拍摄一张照片并保存",
+    "exp": 15,
+    "gold": 10,
+    "estimated_minutes": 3,
+    "walk_distance_m": 0,
+    "place": "公司办公室",
+    "npc": "同事小美",
+    "expires_at": "2026-06-08T05:12:33.241393",
+    "status": "active",
+    "created_at": "2026-06-07T23:54:21.332612",
+    "completed_at": null
+  },
+  {
+    "id": "fde6b284",
+    "type": "photo",
+    "name": "试炼 隐れ里 「翠绿公园」 (小鹿乱撞)",
+    "description": "在「翠绿公园」找一个有趣的角落拍一张照片",
+    "condition": "拍摄一张照片并保存",
+    "exp": 15,
+    "gold": 10,
+    "estimated_minutes": 5,
+    "walk_distance_m": 800,
+    "place": "翠绿公园",
+    "npc": "晨练李阿姨",
+    "expires_at": "2026-06-08T04:39:44.071331",
+    "status": "active",
+    "created_at": "2026-06-07T23:54:21.333609",
+    "completed_at": null
+  },
+  {
+    "id": "5a9b5d1e",
+    "type": "smile",
+    "name": "王命 隐れ里 「翠绿公园」 (干劲满满)",
+    "description": "在「翠绿公园」对遇到的一个人微笑",
+    "condition": "对一个人微笑（对方看到即可，无需互动）",
+    "exp": 10,
+    "gold": 5,
+    "estimated_minutes": 3,
+    "walk_distance_m": 800,
+    "place": "翠绿公园",
+    "npc": "晨练李阿姨",
+    "expires_at": "2026-06-08T03:53:37.485110",
+    "status": "active",
+    "created_at": "2026-06-07T23:54:21.333609",
+    "completed_at": null
+  }
+]
