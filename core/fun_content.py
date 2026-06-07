@@ -50,40 +50,40 @@ def _pick_unique(key: str, items: list[Any]) -> Any:
 
 
 def push_morning_blessing() -> bool:
-    """Push a morning blessing (once per day)."""
+    """Push a morning blessing (once per day). Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    blessings = words.get("blessings", ["早安，勇者！"])
-    blessing = _pick_unique("blessings", blessings)
+    from .content_gen import generate
+    result = generate("blessing")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("朝の祝福", blessing)
-    get_voice().say(blessing[:60], event="fun_content")
-
+    notify("Morning Blessing", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
 def push_encouragement() -> bool:
-    """Push a random RPG-style encouragement."""
+    """Push a random RPG-style encouragement. Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    encouragements = words.get("encouragements", ["今天也要加油！"])
-    msg = _pick_unique("encouragements", encouragements)
+    from .content_gen import generate
+    result = generate("encouragement")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("冒险者の一言", msg)
-    get_voice().say(msg[:60], event="fun_content")
-
+    notify("Adventurer's Word", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
@@ -257,74 +257,78 @@ def push_place_discovery() -> bool:
 
 
 def push_micro_quest() -> bool:
-    """Push a random micro quest (5-min optional challenge)."""
+    """Push a random micro quest. Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    quests = words.get("micro_quests", ["今日修行：做一件让自己微笑的小事。"])
-    quest = _pick_unique("micro_quests", quests)
+    from .content_gen import generate
+    result = generate("micro_quest")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("Micro Quest", quest)
-    get_voice().say(quest[:60], event="fun_content")
+    notify("Micro Quest", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
 def push_life_tip() -> bool:
-    """Push a life tip in anime style."""
+    """Push a life tip in anime style. Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    tips = words.get("life_tips", ["勇者の知恵：多喝水，早睡觉。"])
-    tip = _pick_unique("life_tips", tips)
+    from .content_gen import generate
+    result = generate("life_tip")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("Life Tip", tip)
-    get_voice().say(tip[:60], event="fun_content")
+    notify("Life Tip", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
 def push_anime_quote() -> bool:
-    """Push an anime-style inspirational quote."""
+    """Push an anime-style inspirational quote. Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    quotes = words.get("anime_quotes", ["「每一天都是新的冒险。」—— 无名勇者"])
-    quote = _pick_unique("anime_quotes", quotes)
+    from .content_gen import generate
+    result = generate("anime_quote")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("Anime Quote", quote)
-    get_voice().say(quote[:60], event="fun_content")
+    notify("Anime Quote", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
 def push_kingdom_news() -> bool:
-    """Push a fictional kingdom news bulletin."""
+    """Push a fictional kingdom news bulletin. Uses template generator."""
     cfg = get_fun_config()
     if not cfg.get("enabled", True):
         return False
 
-    words = load_json("anime_words.json")
-    news_list = words.get("kingdom_news", ["📰 王国快讯：今日宜探索，不宜宅家。"])
-    news = _pick_unique("kingdom_news", news_list)
+    from .content_gen import generate
+    result = generate("kingdom_news")
+    if not result:
+        return False
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
 
-    notify("Kingdom News", news)
-    get_voice().say(news[:60], event="fun_content")
+    notify("Kingdom News", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content")
     return True
 
 
