@@ -33,7 +33,7 @@ def main() -> None:
         if hb and hb.get("last_pc_push"):
             last = datetime.fromisoformat(hb["last_pc_push"])
             age = (datetime.now(timezone.utc) - last).total_seconds()
-            if age < 2100:  # 35 minutes
+            if age < 5400:  # 90 minutes — PC pushes every 96 min
                 print(f"[scheduler] PC {age:.0f}秒前推送过，跳过本轮（避免重复）。")
                 return
     except Exception:
