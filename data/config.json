@@ -4,10 +4,10 @@
   "use_osm_api": false,
   "voice": {
     "enabled": true,
-    "engine": "pyttsx3",
+    "engine": "edge-tts",
     "rate": 150,
     "volume": 1.0,
-    "voice_id": "",
+    "voice_id": "zh-CN-XiaoyiNeural",
     "event_filters": [
       "new_task",
       "task_expiring",

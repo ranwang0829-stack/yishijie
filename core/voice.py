@@ -86,7 +86,7 @@ class VoiceNotifier:
             async def _run() -> None:
                 import edge_tts
 
-                voice = cfg.get("voice_id", "zh-CN-XiaoxiaoNeural")
+                voice = cfg.get("voice_id") or "zh-CN-XiaoxiaoNeural"
                 communicate = edge_tts.Communicate(text, voice, rate=rate_str)
                 # Use a temporary file for playback
                 import tempfile
@@ -111,17 +111,21 @@ class VoiceNotifier:
 
     def _play_audio_file(self, filepath: str) -> None:
         """Play an audio file cross-platform."""
+        import os
         import platform
         import subprocess
         import sys
+        import time as _time
 
         system = platform.system()
         try:
             if system == "Windows":
-                subprocess.run(
-                    ["powershell", "-c", f"(New-Object Media.SoundPlayer '{filepath}').PlaySync()"],
-                    capture_output=True,
-                )
+                # Use default system player (handles MP3 natively)
+                os.startfile(filepath)
+                # Rough wait: ~1 second per 3KB of MP3, min 3s, max 15s
+                fsize = os.path.getsize(filepath)
+                wait = min(15, max(3, fsize / 3000))
+                _time.sleep(wait)
             elif system == "Darwin":
                 subprocess.run(["afplay", filepath], capture_output=True)
             else:
@@ -173,17 +177,54 @@ def voice_test() -> None:
     """Test voice synchronously (waits for speech to finish)."""
     v = get_voice()
     cfg = load_json("config.json").get("voice", {})
-    print("✓ 正在播放测试语音...")
+    engine_name = cfg.get("engine", "pyttsx3")
+    text = "这里是异世界日常系统的语音测试。勇者，今天也要加油哦！"
+    print(f"✓ 正在测试语音 ({engine_name})...")
+
+    if engine_name == "edge-tts":
+        try:
+            import asyncio
+            import edge_tts
+            import tempfile
+            import os
+
+            voice = cfg.get("voice_id") or "zh-CN-XiaoxiaoNeural"
+            rate = cfg.get("rate", 150)
+            rate_str = f"{int((rate - 150) / 150 * 100):+d}%"
+
+            fd, tmpfile = tempfile.mkstemp(suffix=".mp3")
+            os.close(fd)
+            try:
+                async def _run():
+                    communicate = edge_tts.Communicate(text, voice, rate=rate_str)
+                    await communicate.save(tmpfile)
+                asyncio.run(_run())
+                v._play_audio_file(tmpfile)
+            finally:
+                try:
+                    os.unlink(tmpfile)
+                except OSError:
+                    pass
+            print("✓ 播放完毕。")
+        except Exception as e:
+            print(f"✗ edge-tts 失败: {e}")
+            print("  回退到 pyttsx3...")
+            _test_pyttsx3(cfg, text)
+    else:
+        _test_pyttsx3(cfg, text)
+
+
+def _test_pyttsx3(cfg: dict, text: str) -> None:
     try:
         import pyttsx3
         engine = pyttsx3.init()
         engine.setProperty("rate", cfg.get("rate", 150))
         engine.setProperty("volume", cfg.get("volume", 1.0))
-        engine.say("这里是异世界日常系统的语音测试。勇者，今天也要加油哦！")
+        engine.say(text)
         engine.runAndWait()
         print("✓ 播放完毕。")
     except Exception as e:
-        print(f"✗ 语音失败: {e}")
+        print(f"✗ pyttsx3 失败: {e}")
 
 
 def voice_set_rate(rate: int) -> None:

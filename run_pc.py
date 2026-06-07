@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""
+PC本地推送脚本 — 带语音播报。
+每30分钟运行一次，完成：天气+趣味内容+任务检查+睡前故事+语音朗读。
+同时写入心跳文件，GitHub Actions 检测到心跳后会跳过推送，避免重复。
+"""
+import sys
+import os
+from datetime import datetime, timezone, timedelta
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from core.config import load_json, save_json
+from core.voice import get_voice
+from core.task_manager import load_tasks, _expire_old_tasks, save_tasks, generate_daily_tasks, cleanup_old_expired
+
+
+def write_heartbeat() -> None:
+    """Write heartbeat so GitHub Actions skips when PC is active."""
+    save_json("heartbeat.json", {
+        "last_pc_push": datetime.now(timezone.utc).isoformat(),
+        "host": os.environ.get("COMPUTERNAME", "PC"),
+    })
+
+
+def now_cn() -> datetime:
+    return datetime.now(timezone.utc) + timedelta(hours=8)
+
+
+def main() -> None:
+    now = now_cn()
+    hour = now.hour
+    print(f"[PC] 运行时间: {now.strftime('%Y-%m-%d %H:%M')}")
+
+    voice = get_voice()
+    had_push = False
+
+    # Quiet hours check
+    if 2 <= hour < 8:
+        print(f"[PC] 静默时段（2:00-8:00），跳过所有推送。")
+        if hour == 3:
+            cleanup_old_expired(days=3)
+        return
+
+    # ── Weather ──
+    if 7 <= hour <= 22:
+        try:
+            from core.weather import push_weather, fetch_weather, format_weather_anime
+            cfg = load_json("config.json")
+            city = cfg.get("weather", {}).get("city", "Changchun")
+            data = fetch_weather(city)
+            if data:
+                push_weather()
+                # Voice summary
+                curr = data["current_condition"][0]
+                cond = curr.get("weatherDesc", [{}])[0].get("value", "")
+                temp = curr.get("temp_C", "?")
+                voice.say(f"{city}天气：{cond}，气温{temp}度。", event="weather")
+                had_push = True
+        except Exception as e:
+            print(f"[PC] 天气失败: {e}")
+
+    # ── Fun content ──
+    if 7 <= hour <= 23:
+        try:
+            from core.fun_content import push_random_fun
+            chosen = push_random_fun()
+            had_push = True
+        except Exception as e:
+            print(f"[PC] 趣味失败: {e}")
+
+    # ── Task generation ──
+    try:
+        tasks = _expire_old_tasks(load_tasks())
+        save_tasks(tasks)
+        active = [t for t in tasks if t.get("status") == "active"]
+        cfg = load_json("config.json")
+        min_tasks = cfg.get("daemon", {}).get("push_if_tasks_less_than", 2)
+        if len(active) < min_tasks:
+            print(f"[PC] 活跃任务不足({len(active)}<{min_tasks})，生成新任务...")
+            generated = generate_daily_tasks()
+            for task in generated:
+                voice.say(f"新委托：{task['name']}", event="new_task")
+            had_push = True
+    except Exception as e:
+        print(f"[PC] 任务生成失败: {e}")
+
+    # ── Bedtime story ──
+    if hour == 0:
+        try:
+            from core.fun_content import push_bedtime_story
+            push_bedtime_story()
+            had_push = True
+        except Exception as e:
+            print(f"[PC] 睡前故事失败: {e}")
+
+    # ── Daily report ──
+    if 19 <= hour <= 21:
+        try:
+            from core.fun_content import push_daily_report
+            push_daily_report()
+            had_push = True
+        except Exception as e:
+            print(f"[PC] 日报失败: {e}")
+
+    # ── Heartbeat ──
+    write_heartbeat()
+    print(f"[PC] 心跳已写入。推送数: {'有' if had_push else '无'}")
+
+    # ── Commit heartbeat to GitHub ──
+    try:
+        import subprocess
+        subprocess.run(
+            ["C:/Program Files/Git/bin/git.exe", "-C", os.path.dirname(__file__),
+             "add", "data/heartbeat.json", "data/tasks.json", "data/user_state.json"],
+            capture_output=True, timeout=15)
+        subprocess.run(
+            ["C:/Program Files/Git/bin/git.exe", "-C", os.path.dirname(__file__),
+             "commit", "-m", "PC heartbeat [auto]"],
+            capture_output=True, timeout=15)
+        subprocess.run(
+            ["C:/Program Files/Git/bin/git.exe", "-C", os.path.dirname(__file__), "push"],
+            capture_output=True, timeout=30)
+        print("[PC] 心跳已同步到 GitHub。")
+    except Exception:
+        print("[PC] 心跳同步跳过（GitHub不可达）。")
+
+
+if __name__ == "__main__":
+    main()

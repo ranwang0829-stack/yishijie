@@ -25,6 +25,20 @@ def main() -> None:
     weekday = now.weekday()  # 0=Monday
     print(f"[scheduler] 运行时间: {now.strftime('%Y-%m-%d %H:%M')} 北京时间 (星期{weekday+1})")
 
+    # ── -1. Heartbeat check: skip if PC is active ──
+    try:
+        from core.config import load_json
+        from datetime import timezone
+        hb = load_json("heartbeat.json")
+        if hb and hb.get("last_pc_push"):
+            last = datetime.fromisoformat(hb["last_pc_push"])
+            age = (datetime.now(timezone.utc) - last).total_seconds()
+            if age < 2100:  # 35 minutes
+                print(f"[scheduler] PC {age:.0f}秒前推送过，跳过本轮（避免重复）。")
+                return
+    except Exception:
+        pass  # No heartbeat file = first run or PC never pushed
+
     # ── 0. Quiet hours check (2:00-8:00 → skip all pushes) ──
     if 2 <= hour < 8:
         print(f"[scheduler] 静默时段（2:00-8:00），跳过所有推送。")
