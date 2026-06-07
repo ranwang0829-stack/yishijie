@@ -4,13 +4,49 @@ import random
 from datetime import datetime
 from typing import Any
 
-from .config import load_json
+from .config import load_json, save_json
 from .task_manager import load_tasks, get_user_state
 
 
 def get_fun_config() -> dict[str, Any]:
     cfg = load_json("config.json")
     return cfg.get("fun_content", {"enabled": True})
+
+
+def _pick_unique(key: str, items: list[Any]) -> Any:
+    """Pick a random item, avoiding recently used ones. Cycles through all before repeating.
+
+    Args:
+        key: Content type key (e.g. 'blessings', 'fun_facts')
+        items: List of content items to pick from
+
+    Returns:
+        A single item from the list, guaranteed not recently used.
+    """
+    if not items:
+        return None
+
+    hist = load_json("history.json") or {}
+    used = set(hist.get(key, {}).get("used", []))
+
+    # Available: items not recently used
+    available = [i for i in range(len(items)) if i not in used]
+
+    # If all used, reset cycle
+    if not available:
+        used = set()
+        available = list(range(len(items)))
+
+    # Pick randomly from available
+    idx = random.choice(available)
+    used.add(idx)
+
+    # Keep only last N to prevent unlimited growth
+    # Store as list for JSON
+    hist[key] = {"used": list(used)[-30:], "total": len(items)}
+    save_json("history.json", hist)
+
+    return items[idx]
 
 
 def push_morning_blessing() -> bool:
@@ -21,7 +57,7 @@ def push_morning_blessing() -> bool:
 
     words = load_json("anime_words.json")
     blessings = words.get("blessings", ["早安，勇者！"])
-    blessing = random.choice(blessings)
+    blessing = _pick_unique("blessings", blessings)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
@@ -40,7 +76,7 @@ def push_encouragement() -> bool:
 
     words = load_json("anime_words.json")
     encouragements = words.get("encouragements", ["今天也要加油！"])
-    msg = random.choice(encouragements)
+    msg = _pick_unique("encouragements", encouragements)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
@@ -59,7 +95,7 @@ def push_random_fact() -> bool:
 
     words = load_json("anime_words.json")
     facts = words.get("fun_facts", [{"fact": "生活本身就是冒险！", "anime": "这就是勇者の真谛！"}])
-    fact = random.choice(facts)
+    fact = _pick_unique("fun_facts", facts)
 
     msg = f"📚 {fact['fact']}\n\n💬 {fact['anime']}"
 
@@ -118,7 +154,8 @@ def push_daily_report() -> bool:
     # Add a closing quote
     encouragements = words.get("encouragements", ["明天继续加油！"])
     lines.append(f"")
-    lines.append(f"💬 {random.choice(encouragements)}")
+    closing = _pick_unique("encouragements", encouragements)
+    lines.append(f"💬 {closing}")
 
     msg = "\n".join(lines)
 
@@ -142,7 +179,7 @@ def push_bedtime_story() -> bool:
     if not stories:
         return False
 
-    story = random.choice(stories)
+    story = _pick_unique("bedtime_stories", stories)
     msg = f"🌙 {story['title']}\n\n{story['story']}"
 
     from .notifier import notify_sync as notify
@@ -165,7 +202,7 @@ def push_npc_spotlight() -> bool:
     if not npcs:
         return False
 
-    npc = random.choice(npcs)
+    npc = _pick_unique("npc_spotlight", npcs)
     facts = npc.get("known_facts", [])
     fact_text = "\n".join(f"  • {f}" for f in facts[:3]) if facts else "  神秘の人物..."
 
@@ -195,7 +232,7 @@ def push_place_discovery() -> bool:
     if not places:
         return False
 
-    place = random.choice(places)
+    place = _pick_unique("place_discovery", places)
     npcs = ", ".join(place.get("known_npcs", [])) or "暂无"
     dist = place.get("distance_m", 0)
     dist_text = f"{dist}m" if dist > 0 else "你所在の位置"
@@ -227,7 +264,7 @@ def push_micro_quest() -> bool:
 
     words = load_json("anime_words.json")
     quests = words.get("micro_quests", ["今日修行：做一件让自己微笑的小事。"])
-    quest = random.choice(quests)
+    quest = _pick_unique("micro_quests", quests)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
@@ -245,7 +282,7 @@ def push_life_tip() -> bool:
 
     words = load_json("anime_words.json")
     tips = words.get("life_tips", ["勇者の知恵：多喝水，早睡觉。"])
-    tip = random.choice(tips)
+    tip = _pick_unique("life_tips", tips)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
@@ -263,7 +300,7 @@ def push_anime_quote() -> bool:
 
     words = load_json("anime_words.json")
     quotes = words.get("anime_quotes", ["「每一天都是新的冒险。」—— 无名勇者"])
-    quote = random.choice(quotes)
+    quote = _pick_unique("anime_quotes", quotes)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
@@ -281,7 +318,7 @@ def push_kingdom_news() -> bool:
 
     words = load_json("anime_words.json")
     news_list = words.get("kingdom_news", ["📰 王国快讯：今日宜探索，不宜宅家。"])
-    news = random.choice(news_list)
+    news = _pick_unique("kingdom_news", news_list)
 
     from .notifier import notify_sync as notify
     from .voice import get_voice
