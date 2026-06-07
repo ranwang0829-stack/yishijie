@@ -170,9 +170,20 @@ def voice_off() -> None:
 
 
 def voice_test() -> None:
+    """Test voice synchronously (waits for speech to finish)."""
     v = get_voice()
-    v.say("这里是异世界日常系统的语音测试。勇者，今天也要加油哦！", event="all")
+    cfg = load_json("config.json").get("voice", {})
     print("✓ 正在播放测试语音...")
+    try:
+        import pyttsx3
+        engine = pyttsx3.init()
+        engine.setProperty("rate", cfg.get("rate", 150))
+        engine.setProperty("volume", cfg.get("volume", 1.0))
+        engine.say("这里是异世界日常系统的语音测试。勇者，今天也要加油哦！")
+        engine.runAndWait()
+        print("✓ 播放完毕。")
+    except Exception as e:
+        print(f"✗ 语音失败: {e}")
 
 
 def voice_set_rate(rate: int) -> None:
