@@ -42,66 +42,77 @@ def main() -> None:
             cleanup_old_expired(days=3)
         return
 
-    # ── Weather ──
+    # ── Pick ONE action per cycle (避免一次推送多条) ──
+    actions = []
+
+    # Weather: daytime, weight 2
     if 7 <= hour <= 22:
-        try:
-            from core.weather import push_weather, fetch_weather, format_weather_anime
-            cfg = load_json("config.json")
-            city = cfg.get("weather", {}).get("city", "Changchun")
-            data = fetch_weather(city)
-            if data:
-                push_weather()
-                # Voice summary
-                curr = data["current_condition"][0]
-                cond = curr.get("weatherDesc", [{}])[0].get("value", "")
-                temp = curr.get("temp_C", "?")
-                voice.say(f"{city}天气：{cond}，气温{temp}度。", event="weather")
-                had_push = True
-        except Exception as e:
-            print(f"[PC] 天气失败: {e}")
+        actions.extend(["weather", "weather"])
 
-    # ── Fun content ──
+    # Fun content: daytime, weight 5
     if 7 <= hour <= 23:
-        try:
-            from core.fun_content import push_random_fun
-            chosen = push_random_fun()
-            had_push = True
-        except Exception as e:
-            print(f"[PC] 趣味失败: {e}")
+        actions.extend(["fun"] * 5)
 
-    # ── Task generation ──
-    try:
-        tasks = _expire_old_tasks(load_tasks())
-        save_tasks(tasks)
-        active = [t for t in tasks if t.get("status") == "active"]
-        cfg = load_json("config.json")
-        min_tasks = cfg.get("daemon", {}).get("push_if_tasks_less_than", 2)
-        if len(active) < min_tasks:
-            print(f"[PC] 活跃任务不足({len(active)}<{min_tasks})，生成新任务...")
-            generated = generate_daily_tasks()
-            for task in generated:
-                voice.say(f"新委托：{task['name']}", event="new_task")
-            had_push = True
-    except Exception as e:
-        print(f"[PC] 任务生成失败: {e}")
+    # Task generation: only when needed, weight 3
+    tasks = _expire_old_tasks(load_tasks())
+    save_tasks(tasks)
+    active = [t for t in tasks if t.get("status") == "active"]
+    if len(active) < 2:
+        actions.extend(["task"] * 3)
 
-    # ── Bedtime story ──
-    if hour == 0:
-        try:
-            from core.fun_content import push_bedtime_story
-            push_bedtime_story()
-            had_push = True
-        except Exception as e:
-            print(f"[PC] 睡前故事失败: {e}")
-
-    # ── Daily report ──
+    # Daily report: evening, weight 2
     if 19 <= hour <= 21:
+        actions.extend(["report", "report"])
+
+    # Bedtime story: midnight
+    if hour == 0:
+        actions.extend(["story"] * 3)
+
+    if not actions:
+        print("[PC] 无可用推送类型。")
+    else:
+        import random
+        chosen = random.choice(actions)
+        print(f"[PC] 选择推送类型: {chosen}")
+
         try:
-            from core.fun_content import push_daily_report
-            push_daily_report()
-            had_push = True
+            if chosen == "weather":
+                from core.weather import push_weather, fetch_weather
+                cfg = load_json("config.json")
+                city = cfg.get("weather", {}).get("city", "Changchun")
+                data = fetch_weather(city)
+                if data:
+                    push_weather()
+                    curr = data["current_condition"][0]
+                    cond = curr.get("weatherDesc", [{}])[0].get("value", "")
+                    temp = curr.get("temp_C", "?")
+                    voice.say(f"{city}天气：{cond}，{temp}度。", event="weather")
+                    had_push = True
+
+            elif chosen == "fun":
+                from core.fun_content import push_random_fun
+                push_random_fun()
+                had_push = True
+
+            elif chosen == "task":
+                generated = generate_daily_tasks()
+                for task in generated:
+                    voice.say(f"新委托：{task['name']}", event="new_task")
+                had_push = True
+
+            elif chosen == "story":
+                from core.fun_content import push_bedtime_story
+                push_bedtime_story()
+                had_push = True
+
+            elif chosen == "report":
+                from core.fun_content import push_daily_report
+                push_daily_report()
+                voice.say("勇者日报已生成。", event="fun_content")
+                had_push = True
+
         except Exception as e:
-            print(f"[PC] 日报失败: {e}")
+            print(f"[PC] 推送失败: {e}")
 
     # ── Heartbeat ──
     write_heartbeat()

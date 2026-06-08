@@ -110,22 +110,33 @@ class VoiceNotifier:
             print(f"[voice/edge-tts] TTS失败: {e}")
 
     def _play_audio_file(self, filepath: str) -> None:
-        """Play an audio file cross-platform."""
+        """Play an audio file cross-platform. Windows uses MCI for silent playback."""
         import os
         import platform
         import subprocess
         import sys
         import time as _time
+        import ctypes
 
         system = platform.system()
         try:
             if system == "Windows":
-                # Use default system player (handles MP3 natively)
-                os.startfile(filepath)
-                # Rough wait: ~1 second per 3KB of MP3, min 3s, max 15s
+                # Use MCI (Media Control Interface) — no window, auto-close
                 fsize = os.path.getsize(filepath)
                 wait = min(15, max(3, fsize / 3000))
-                _time.sleep(wait)
+
+                # MCI plays MP3 silently in background
+                try:
+                    ctypes.windll.winmm.mciSendStringW(
+                        f'open "{filepath}" type mpegvideo alias isekai_voice', None, 0, 0
+                    )
+                    ctypes.windll.winmm.mciSendStringW(
+                        'play isekai_voice wait', None, 0, 0
+                    )
+                finally:
+                    ctypes.windll.winmm.mciSendStringW(
+                        'close isekai_voice', None, 0, 0
+                    )
             elif system == "Darwin":
                 subprocess.run(["afplay", filepath], capture_output=True)
             else:

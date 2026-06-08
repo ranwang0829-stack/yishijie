@@ -50,83 +50,83 @@ def main() -> None:
 
     had_push = False
 
-    # ── 1. Morning blessing (8:00-9:00) ──
-    if 7 <= hour <= 9:
-        try:
-            from core.fun_content import push_morning_blessing
-            print("[scheduler] 朝の祝福推送...")
-            push_morning_blessing()
-            had_push = True
-        except Exception as e:
-            print(f"[scheduler] 祝福失败: {e}")
+    # ── Pick ONE action per cycle ──
+    import random
+    actions = []
 
-    # ── 2. Weather push (daytime 7:00-22:00, every 2h) ──
+    # Morning blessing: 8-9
+    if 8 <= hour <= 9:
+        actions.append("blessing")
+
+    # Weather: daytime
     if 7 <= hour <= 22:
-        try:
-            from core.weather import push_weather
-            print("[scheduler] 天气推送...")
-            push_weather()
-            had_push = True
-        except Exception as e:
-            print(f"[scheduler] 天气失败: {e}")
+        actions.extend(["weather"] * 2)
 
-    # ── 3. Fun content push (daytime, alternating) ──
+    # Fun content: daytime
     if 7 <= hour <= 23:
-        try:
-            from core.fun_content import push_random_fun
-            print("[scheduler] 趣味内容推送...")
-            push_random_fun()
-            had_push = True
-        except Exception as e:
-            print(f"[scheduler] 趣味失败: {e}")
+        actions.extend(["fun"] * 5)
 
-    # ── 4. Task generation check ──
-    try:
-        tasks = _expire_old_tasks(load_tasks())
-        save_tasks(tasks)
-        active = [t for t in tasks if t.get("status") == "active"]
-        cfg = load_json("config.json")
-        min_tasks = cfg.get("daemon", {}).get("push_if_tasks_less_than", 2)
+    # Task generation: only when needed
+    tasks = _expire_old_tasks(load_tasks())
+    save_tasks(tasks)
+    active = [t for t in tasks if t.get("status") == "active"]
+    if len(active) < 2:
+        actions.extend(["task"] * 3)
 
-        if len(active) < min_tasks:
-            print(f"[scheduler] 活跃任务不足({len(active)}<{min_tasks})，生成新任务...")
-            generated = generate_daily_tasks()
-            for task in generated:
-                print(f"  + {task['name']}")
-            # Push notifications for new tasks
-            from core.notifier import notify
-            for task in generated:
-                notify(
-                    f"New Quest: {task.get('name', '')}",
-                    f"{task.get('description', '')} | {task.get('exp', 0)}EXP + {task.get('gold', 0)}G",
-                )
-            had_push = True
-        else:
-            print(f"[scheduler] 活跃任务充足({len(active)}个)，跳过生成。")
-    except Exception as e:
-        print(f"[scheduler] 任务生成失败: {e}")
-
-    # ── 5. Daily report (20:00-21:00) ──
+    # Daily report: evening
     if 19 <= hour <= 21:
-        try:
-            from core.fun_content import push_daily_report
-            print("[scheduler] 勇者日报推送...")
-            push_daily_report()
-            had_push = True
-        except Exception as e:
-            print(f"[scheduler] 日报失败: {e}")
+        actions.extend(["report"] * 2)
 
-    # ── 6. Bedtime story (0:00) ──
+    # Bedtime story
     if hour == 0:
-        try:
-            from core.fun_content import push_bedtime_story
-            print("[scheduler] 睡前故事推送...")
-            push_bedtime_story()
-            had_push = True
-        except Exception as e:
-            print(f"[scheduler] 睡前故事失败: {e}")
+        actions.extend(["story"] * 3)
 
-    # ── 7. Daily cleanup (3:00-4:00) ──
+    if actions:
+        chosen = random.choice(actions)
+        print(f"[scheduler] 选择推送类型: {chosen}")
+
+        try:
+            if chosen == "blessing":
+                from core.fun_content import push_morning_blessing
+                push_morning_blessing()
+                had_push = True
+
+            elif chosen == "weather":
+                from core.weather import push_weather
+                push_weather()
+                had_push = True
+
+            elif chosen == "fun":
+                from core.fun_content import push_random_fun
+                push_random_fun()
+                had_push = True
+
+            elif chosen == "task":
+                generated = generate_daily_tasks()
+                for task in generated:
+                    print(f"  + {task['name']}")
+                from core.notifier import notify
+                for task in generated:
+                    notify(f"New Quest: {task.get('name', '')}",
+                           f"{task.get('description', '')} | {task.get('exp', 0)}EXP + {task.get('gold', 0)}G")
+                had_push = True
+
+            elif chosen == "report":
+                from core.fun_content import push_daily_report
+                push_daily_report()
+                had_push = True
+
+            elif chosen == "story":
+                from core.fun_content import push_bedtime_story
+                push_bedtime_story()
+                had_push = True
+
+        except Exception as e:
+            print(f"[scheduler] 推送失败: {e}")
+    else:
+        print("[scheduler] 无可用推送类型。")
+
+    # ── Cleanup (3:00-4:00) ──
     if hour == 3:
         removed = cleanup_old_expired(days=3)
         print(f"[scheduler] 清理了 {removed} 条过期任务。")
