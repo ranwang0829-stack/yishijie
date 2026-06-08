@@ -160,6 +160,25 @@ def _generate_type(push_type: str, p: dict, used: set) -> dict[str, str] | None:
             ("Morning Blessing", "{places_v}の{npc_v}报告：今日{emotions}正好。无论多忙，记得{action}。那是免费の治愈魔法。"),
             ("Morning Blessing", "今日运势：中吉以上！特别适合{action}。完成后获得「{emotions}」の祝福。"),
         ],
+        "isekai_slang": [
+            ("Isekai Slang", "今日异世界用语：「{slang_term}」——{slang_def}。💡使用场景：{slang_use}"),
+            ("Isekai Slang", "勇者用语辞典：「{slang_term}」とは？{slang_def}。📝例句：「{slang_example}」"),
+            ("Isekai Slang", "冒险者黑话课堂：{slang_term}（{slang_def}）。学会这个词，你在异世界の社交力+{numbers}！"),
+            ("Isekai Slang", "异世界语言学：今天学「{slang_term}」——{slang_def}。{slang_use}"),
+            ("Isekai Slang", "王国辞典：「{slang_term}」— {slang_def}。勇者必备词汇，今日习得！"),
+        ],
+        "isekai_recipe": [
+            ("Isekai Recipe", "🍳 勇者の{recipe_meal}：「{recipe_name}」\n\n📜 材料：{recipe_ingredients}\n⚔ 制作：{recipe_steps}\n\n✨ 效果：{recipe_effect}\n💡 {recipe_tip}"),
+            ("Isekai Recipe", "🔥 冒险者厨房：{recipe_name}\n\n🧪 所需素材：{recipe_ingredients}\n📋 炼金步骤：{recipe_steps}\n\n🎁 完成奖励：{recipe_effect}\n💬 {recipe_tip}"),
+            ("Isekai Recipe", "🍜 异世界料理图鉴 #{numbers}：{recipe_name}\n\n🛒 采购清单：{recipe_ingredients}\n🔪 烹饪魔法：{recipe_steps}\n\n🌟 HP回复量：{recipe_effect}\n📝 {recipe_tip}"),
+        ],
+        "isekai_motivation": [
+            ("Isekai Motivation", "🔥 勇者の魂に火をつけろ！\n\n{action}——这不是建议，是来自异世界の王命！\n\n{emotions}はあなたの最大の武器だ。今日も立ち上がれ！"),
+            ("Isekai Motivation", "⚔ 限界突破！\n\n「{skills}」を信じろ。{npcs_v}も言っていた——「{action}こそが伝説の始まりだ」と。"),
+            ("Isekai Motivation", "💥 覚醒の刻！\n\n今の自分を超えるために必要なのは、{benefits}だけ。{action}すれば、明日のあなたは今日より{numbers}倍強くなっている。"),
+            ("Isekai Motivation", "🎌 いくぞ、勇者！\n\n{places_v}で待つ{npc_v}が言った：「{emotions}を持って{action}すれば、君はもう伝説だ。」\n\nその言葉を胸に、今日も一歩を踏み出そう。"),
+            ("Isekai Motivation", "🌟 あなたの物語はまだ序章だ。\n\n{subjects}のために{action}すること——それは{skills}の第一歩。{emotions}を忘れるな！"),
+        ],
     }
 
     tmpls = templates.get(push_type, [])
@@ -182,6 +201,12 @@ def _generate_type(push_type: str, p: dict, used: set) -> dict[str, str] | None:
                 "places_v": "places_v", "npcs_v": "npcs_v", "times": "times",
                 "numbers": "numbers", "items": "items", "skills": "skills",
                 "emotions": "emotions", "animals": "animals",
+                "slang_term": "slang_terms", "slang_def": "slang_defs",
+                "slang_use": "slang_uses", "slang_example": "slang_examples",
+                "recipe_meal": "recipe_meals", "recipe_name": "recipe_names",
+                "recipe_ingredients": "recipe_ingredients",
+                "recipe_steps": "recipe_steps", "recipe_effect": "recipe_effects",
+                "recipe_tip": "recipe_tips",
             }.get(slot, slot)
             pool = p.get(pool_name, ["?"])
             filled[slot] = _pick(pool, used)
@@ -205,6 +230,12 @@ def _generate_type(push_type: str, p: dict, used: set) -> dict[str, str] | None:
             "places_v": "places_v", "npcs_v": "npcs_v", "times": "times",
             "numbers": "numbers", "items": "items", "skills": "skills",
             "emotions": "emotions", "animals": "animals",
+            "slang_term": "slang_terms", "slang_def": "slang_defs",
+            "slang_use": "slang_uses", "slang_example": "slang_examples",
+            "recipe_meal": "recipe_meals", "recipe_name": "recipe_names",
+            "recipe_ingredients": "recipe_ingredients",
+            "recipe_steps": "recipe_steps", "recipe_effect": "recipe_effects",
+            "recipe_tip": "recipe_tips",
         }.get(slot, slot)
         pool = p.get(pool_name, ["?"])
         body = body.replace(f"{{{slot}}}", _pick(pool, set()), 1)

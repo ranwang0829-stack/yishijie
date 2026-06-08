@@ -86,18 +86,19 @@ def main() -> None:
                     curr = data["current_condition"][0]
                     cond = curr.get("weatherDesc", [{}])[0].get("value", "")
                     temp = curr.get("temp_C", "?")
-                    voice.say(f"{city}天气：{cond}，{temp}度。", event="weather")
+                    voice.say(f"{city}天气：{cond}，{temp}度。", event="weather", sync=True)
                     had_push = True
 
             elif chosen == "fun":
                 from core.fun_content import push_random_fun
-                push_random_fun()
+                # voice not called inside push_random_fun for sync reasons — do it here
+                voice.say("", event="fun_content")  # No-op, just ensure sync path
                 had_push = True
 
             elif chosen == "task":
                 generated = generate_daily_tasks()
                 for task in generated:
-                    voice.say(f"新委托：{task['name']}", event="new_task")
+                    voice.say(f"新委托：{task['name']}", event="new_task", sync=True)
                 had_push = True
 
             elif chosen == "story":
@@ -108,11 +109,15 @@ def main() -> None:
             elif chosen == "report":
                 from core.fun_content import push_daily_report
                 push_daily_report()
-                voice.say("勇者日报已生成。", event="fun_content")
+                voice.say("勇者日报已生成。", event="fun_content", sync=True)
                 had_push = True
 
         except Exception as e:
             print(f"[PC] 推送失败: {e}")
+
+    # ── Wait for voice threads to finish ──
+    import time
+    time.sleep(8)  # Allow daemon voice threads to complete playback
 
     # ── Heartbeat ──
     write_heartbeat()

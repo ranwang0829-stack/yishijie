@@ -64,7 +64,7 @@ def push_morning_blessing() -> bool:
     from .voice import get_voice
 
     notify("Morning Blessing", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -83,7 +83,7 @@ def push_encouragement() -> bool:
     from .voice import get_voice
 
     notify("Adventurer's Word", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -103,7 +103,7 @@ def push_random_fact() -> bool:
     from .voice import get_voice
 
     notify("世界の豆知识", msg)
-    get_voice().say(f"豆知识：{fact['fact'][:50]}", event="fun_content")
+    get_voice().say(f"豆知识：{fact['fact'][:50]}", event="fun_content", sync=True)
 
     return True
 
@@ -163,7 +163,7 @@ def push_daily_report() -> bool:
     from .voice import get_voice
 
     notify("勇者日报", msg)
-    get_voice().say(f"勇者日报：今日完成{len(today_completed)}个任务，获得{today_exp}经验值。", event="fun_content")
+    get_voice().say(f"勇者日报：今日完成{len(today_completed)}个任务，获得{today_exp}经验值。", event="fun_content", sync=True)
 
     return True
 
@@ -186,7 +186,7 @@ def push_bedtime_story() -> bool:
     from .voice import get_voice
 
     notify(f"Bedtime Story: {story['title']}", msg)
-    get_voice().say("", event="fun_content")  # Don't voice at night
+    get_voice().say("", event="fun_content", sync=True)  # Don't voice at night
 
     return True
 
@@ -217,7 +217,7 @@ def push_npc_spotlight() -> bool:
     from .voice import get_voice
 
     notify(f"NPC: {npc['name']}", msg)
-    get_voice().say(f"NPC图鉴：{npc['name']}，出没于{npc.get('location', '')}", event="fun_content")
+    get_voice().say(f"NPC图鉴：{npc['name']}，出没于{npc.get('location', '')}", event="fun_content", sync=True)
     return True
 
 
@@ -252,7 +252,7 @@ def push_place_discovery() -> bool:
     from .voice import get_voice
 
     notify(f"Place: {place['name']}", msg)
-    get_voice().say(f"地点发现：{place['name']}，距离{dist_text}", event="fun_content")
+    get_voice().say(f"地点发现：{place['name']}，距离{dist_text}", event="fun_content", sync=True)
     return True
 
 
@@ -271,7 +271,7 @@ def push_micro_quest() -> bool:
     from .voice import get_voice
 
     notify("Micro Quest", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -290,7 +290,7 @@ def push_life_tip() -> bool:
     from .voice import get_voice
 
     notify("Life Tip", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -309,7 +309,7 @@ def push_anime_quote() -> bool:
     from .voice import get_voice
 
     notify("Anime Quote", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -328,7 +328,55 @@ def push_kingdom_news() -> bool:
     from .voice import get_voice
 
     notify("Kingdom News", result["body"])
-    get_voice().say(result["body"][:60], event="fun_content")
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
+    return True
+
+
+def push_isekai_slang() -> bool:
+    """Push an isekai slang term with definition and usage."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+    from .content_gen import generate
+    result = generate("isekai_slang")
+    if not result:
+        return False
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+    notify("Isekai Slang", result["body"])
+    get_voice().say(f"异世界黑话：{result['body'][:50]}", event="fun_content", sync=True)
+    return True
+
+
+def push_isekai_recipe() -> bool:
+    """Push an isekai-style simple recipe."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+    from .content_gen import generate
+    result = generate("isekai_recipe")
+    if not result:
+        return False
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+    notify("Isekai Recipe", result["body"])
+    get_voice().say(f"异世界食谱：{result['body'][:50]}", event="fun_content", sync=True)
+    return True
+
+
+def push_isekai_motivation() -> bool:
+    """Push a high-energy isekai motivation message."""
+    cfg = get_fun_config()
+    if not cfg.get("enabled", True):
+        return False
+    from .content_gen import generate
+    result = generate("isekai_motivation")
+    if not result:
+        return False
+    from .notifier import notify_sync as notify
+    from .voice import get_voice
+    notify("Isekai Motivation", result["body"])
+    get_voice().say(result["body"][:60], event="fun_content", sync=True)
     return True
 
 
@@ -338,6 +386,7 @@ def push_random_fun() -> str:
         "blessing", "encouragement", "fact",
         "npc", "place", "micro_quest",
         "life_tip", "anime_quote", "kingdom_news",
+        "isekai_slang", "isekai_recipe", "isekai_motivation",
     ]
     chosen = random.choice(types)
 
@@ -357,6 +406,12 @@ def push_random_fun() -> str:
         push_life_tip()
     elif chosen == "anime_quote":
         push_anime_quote()
+    elif chosen == "isekai_slang":
+        push_isekai_slang()
+    elif chosen == "isekai_recipe":
+        push_isekai_recipe()
+    elif chosen == "isekai_motivation":
+        push_isekai_motivation()
     else:
         push_kingdom_news()
 

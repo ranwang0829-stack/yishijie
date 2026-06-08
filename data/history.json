@@ -143,27 +143,28 @@
   },
   "gen_kingdom_news": {
     "hashes": [
-      "fae09d27902a",
-      "c7cce6590383",
-      "713b8d499cd2",
-      "cb89cb4a44ad",
-      "885ee943ca72",
+      "66963c780779",
+      "3ec1bcc933b5",
+      "f7c53091ebae",
+      "a276ffa9a751",
+      "fc6dcb4dc7ac",
+      "4d0e8c04a803",
+      "0bca544a66a8",
+      "a9102df431c9",
+      "b369488b512b",
+      "0635a2f0c870",
       "d1fa34d1aac3",
       "050def30082e",
-      "b369488b512b",
-      "6755bb9d0855",
-      "fc6dcb4dc7ac",
-      "3ec1bcc933b5",
-      "6489b79f14ee",
+      "03bf99d41181",
       "7d049f5627e3",
-      "a276ffa9a751",
-      "0635a2f0c870",
-      "4d0e8c04a803",
-      "f7c53091ebae",
+      "6755bb9d0855",
+      "885ee943ca72",
       "f393647b538b",
-      "0bca544a66a8",
-      "66963c780779",
-      "03bf99d41181"
+      "c7cce6590383",
+      "cb89cb4a44ad",
+      "fae09d27902a",
+      "713b8d499cd2",
+      "6489b79f14ee"
     ]
   },
   "gen_encouragement": {
@@ -221,6 +222,7 @@
   },
   "encouragements": {
     "used": [
+      6,
       7,
       10,
       14,
@@ -228,5 +230,33 @@
       16
     ],
     "total": 19
+  },
+  "gen_isekai_slang": {
+    "hashes": [
+      "6c90f2bef880"
+    ]
+  },
+  "gen_isekai_recipe": {
+    "hashes": [
+      "0e4b1cfc51a6"
+    ]
+  },
+  "gen_isekai_motivation": {
+    "hashes": [
+      "c0dde29cb30a",
+      "5d51058ec210"
+    ]
+  },
+  "fun_facts": {
+    "used": [
+      4
+    ],
+    "total": 19
+  },
+  "place_discovery": {
+    "used": [
+      2
+    ],
+    "total": 4
   }
 }

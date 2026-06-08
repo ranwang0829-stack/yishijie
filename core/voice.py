@@ -32,8 +32,8 @@ class VoiceNotifier:
         filters = cfg.get("event_filters", [])
         return "all" in filters or event in filters
 
-    def say(self, text: str, event: str = "general") -> None:
-        """Speak text in a background thread if voice is enabled and event matches filter."""
+    def say(self, text: str, event: str = "general", sync: bool = False) -> None:
+        """Speak text. If sync=True, blocks until speech finishes (for one-shot scripts)."""
         if not self._should_speak(event):
             return
 
@@ -41,10 +41,17 @@ class VoiceNotifier:
         engine_name = cfg.get("engine", "pyttsx3")
 
         if engine_name == "edge-tts" and self._edge_available:
-            t = threading.Thread(target=self._say_edge, args=(text, cfg), daemon=True)
+            if sync:
+                self._say_edge(text, cfg)
+            else:
+                t = threading.Thread(target=self._say_edge, args=(text, cfg), daemon=True)
+                t.start()
         else:
-            t = threading.Thread(target=self._say_pyttsx3, args=(text, cfg), daemon=True)
-        t.start()
+            if sync:
+                self._say_pyttsx3(text, cfg)
+            else:
+                t = threading.Thread(target=self._say_pyttsx3, args=(text, cfg), daemon=True)
+                t.start()
 
     def _say_pyttsx3(self, text: str, cfg: dict[str, Any]) -> None:
         """Speak using pyttsx3 (offline)."""
