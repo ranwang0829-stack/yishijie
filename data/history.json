@@ -117,26 +117,27 @@
   "gen_anime_quote": {
     "hashes": [
       "57f725dcc747",
+      "462ac7f365a6",
+      "b4009b48ef4a",
+      "31b0ce02ed0e",
+      "dea671ac0a79",
+      "b06dbb47e08c",
+      "2832b8496d9e",
+      "e0c184d6f556",
       "ec20402ebc5b",
       "27e06db6ddd9",
-      "f0ada018d971",
-      "9314cf69c7a0",
-      "2fec98ea4a69",
-      "462ac7f365a6",
-      "dea671ac0a79",
-      "76bba62fe9ff",
-      "8ef734b37806",
+      "98e3686fbbfc",
       "c181cba1560d",
-      "e0c184d6f556",
-      "b4009b48ef4a",
+      "76bba62fe9ff",
       "c9d045af1b35",
-      "2832b8496d9e",
+      "8ef734b37806",
+      "2fec98ea4a69",
+      "c9a842d680f0",
       "9a3463572c3b",
       "1a37cecd516a",
-      "98e3686fbbfc",
-      "31b0ce02ed0e",
-      "494d34def5eb",
-      "c9a842d680f0"
+      "9314cf69c7a0",
+      "f0ada018d971",
+      "494d34def5eb"
     ]
   },
   "gen_kingdom_news": {
@@ -215,5 +216,11 @@
       "d7d02089017e",
       "24fb97cae831"
     ]
+  },
+  "encouragements": {
+    "used": [
+      5
+    ],
+    "total": 19
   }
 }
