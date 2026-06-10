@@ -221,7 +221,14 @@
   },
   "encouragements": {
     "used": [
+      16,
       5
+    ],
+    "total": 19
+  },
+  "fun_facts": {
+    "used": [
+      17
     ],
     "total": 19
   }
