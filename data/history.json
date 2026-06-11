@@ -143,27 +143,28 @@
   },
   "gen_kingdom_news": {
     "hashes": [
-      "fae09d27902a",
-      "c7cce6590383",
-      "713b8d499cd2",
-      "cb89cb4a44ad",
-      "885ee943ca72",
-      "d1fa34d1aac3",
-      "050def30082e",
-      "b369488b512b",
-      "6755bb9d0855",
-      "fc6dcb4dc7ac",
-      "3ec1bcc933b5",
-      "6489b79f14ee",
-      "7d049f5627e3",
-      "a276ffa9a751",
-      "0635a2f0c870",
-      "4d0e8c04a803",
+      "95d5b1f114e7",
       "f7c53091ebae",
-      "f393647b538b",
-      "0bca544a66a8",
+      "cb89cb4a44ad",
+      "7d049f5627e3",
       "66963c780779",
-      "03bf99d41181"
+      "4d0e8c04a803",
+      "6489b79f14ee",
+      "fc6dcb4dc7ac",
+      "b369488b512b",
+      "a276ffa9a751",
+      "0bca544a66a8",
+      "885ee943ca72",
+      "c7cce6590383",
+      "03bf99d41181",
+      "713b8d499cd2",
+      "3ec1bcc933b5",
+      "050def30082e",
+      "f393647b538b",
+      "0635a2f0c870",
+      "fae09d27902a",
+      "d1fa34d1aac3",
+      "6755bb9d0855"
     ]
   },
   "gen_encouragement": {
@@ -222,6 +223,7 @@
   "encouragements": {
     "used": [
       16,
+      9,
       5
     ],
     "total": 19
