@@ -241,5 +241,11 @@
       4
     ],
     "total": 6
+  },
+  "place_discovery": {
+    "used": [
+      1
+    ],
+    "total": 4
   }
 }
