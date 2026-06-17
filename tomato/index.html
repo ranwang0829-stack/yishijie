@@ -1181,41 +1181,107 @@
     .grid-12{grid-template-columns:repeat(6,1fr)}
   }
 
-  /* ============ Mobile Responsive ============ */
+  /* ============ Portrait Mobile — Vertical Stack ============ */
   @media (orientation: portrait) {
-    #rotate-hint {
+    /* Override deck to vertical scroll */
+    #deck {
+      width: 100vw !important;
       display: flex !important;
+      flex-direction: column !important;
+      flex-wrap: nowrap !important;
+      transform: none !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      transition: none !important;
     }
-    #deck { display: none; }
-    #nav { display: none; }
+    .slide {
+      width: 100vw !important;
+      height: auto !important;
+      min-height: 100vh !important;
+      flex: none !important;
+      padding: 8vh 6vw 10vh 6vw !important;
+    }
+    /* Nav dots hidden on portrait */
+    #nav { display: none !important; }
+
+    /* Override all grid layouts to single column */
+    .slide .canvas-card > div[style*="grid-template-columns"],
+    .slide [style*="grid-template-columns:repeat(2"],
+    .slide [style*="grid-template-columns:repeat(3"],
+    .slide [style*="grid-template-columns:repeat(4"],
+    .slide [style*="grid-template-columns:repeat(5"],
+    .slide [style*="grid-template-columns: 1fr 1fr"],
+    .slide [style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    .duo-compare {
+      grid-template-columns: 1fr !important;
+    }
+    .duo-compare .vrule { display: none !important; }
+    .cell-6 { grid-template-columns: 1fr 1fr !important; }
+    .timeline-h {
+      grid-template-columns: 1fr !important;
+      gap: 3vh !important;
+    }
+    .kpi-row-4 {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .kpi-row-4 > .kpi-cell:nth-child(3) { border-left: none !important; }
+
+    /* Font sizing for portrait */
+    .h-hero, [style*="font-size:min(11.6vw"] {
+      font-size: min(9vw, 6vh) !important;
+    }
+    [style*="font-size:min(6vw"], [style*="font-size:min(6.4vw"] {
+      font-size: min(8vw, 5.5vh) !important;
+    }
+    [style*="font-size:min(4.6vw"] {
+      font-size: min(7vw, 5vh) !important;
+    }
+    [style*="font-size:min(5.8vw"] {
+      font-size: min(7.5vw, 5vh) !important;
+    }
+    .h-xl-zh { font-size: min(8vw, 5vh) !important; }
+    .lead { font-size: max(16px, 3.2vw) !important; }
+    .body { font-size: max(15px, 2.8vw) !important; }
+    .body-sm { font-size: max(14px, 2.5vw) !important; }
+    .t-cat { font-size: max(12px, 2.2vw) !important; }
+    .t-meta { font-size: max(11px, 2vw) !important; }
+    .kpi-thin-sm { font-size: 9vw !important; }
+
+    /* Split halves stack vertically */
+    .slide [style*="grid-template-columns:1fr 1fr"][style*="padding:0"] {
+      grid-template-columns: 1fr !important;
+    }
+    .half { min-height: 35vh !important; }
+
+    /* Cards and spacings */
+    .card-fill { padding: var(--sp-5) !important; }
+    .canvas-card { padding: 6vh 6vw 8vh 6vw !important; }
+
+    /* Timeline adjustments */
+    .tl-node {
+      grid-template-columns: 24px minmax(0,5em) 1fr !important;
+    }
+
+    /* Chrome header */
+    .chrome-min {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.5vh !important;
+      margin-bottom: 3vh !important;
+    }
+
+    /* Hide ascii-bg on mobile for performance */
+    .ascii-bg { display: none !important; }
+    canvas.bg { opacity: 0.25 !important; }
+
+    /* KPI row 4-col → 2-col */
+    .kpi-cell .nb { font-size: 6vw !important; }
   }
-  @media (orientation: landscape) {
-    #rotate-hint { display: none !important; }
-    #deck { display: flex !important; }
-    #nav { display: block !important; }
-  }
-  #rotate-hint {
-    display: none;
-    position: fixed; inset: 0; z-index: 9999;
-    background: #002FA7;
-    flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 3vh;
-    font-family: var(--sans),var(--sans-zh);
-    color: #fff;
-  }
-  #rotate-hint .icon { font-size: 12vw; animation: rotate-hint 2s ease-in-out infinite; }
-  @keyframes rotate-hint { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(90deg)} }
-  #rotate-hint .text { font-size: 5vw; font-weight: 200; letter-spacing: .04em; }
-  #rotate-hint .sub { font-size: 3.2vw; font-weight: 300; opacity: .6; }
 </style>
 </head>
 <body class="canvas-mode">
-<div id="rotate-hint">
-  <div class="icon">📱</div>
-  <div class="text">请旋转设备</div>
-  <div class="sub">横屏浏览以获得最佳体验</div>
-</div>
 <script>
   // Windows 平台标记 — 雅黑没有 ExtraLight,需要字重补偿
   if(/Win/i.test(navigator.platform || navigator.userAgentData?.platform || '')){
