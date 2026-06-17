@@ -259,5 +259,11 @@
       2
     ],
     "total": 4
+  },
+  "npc_spotlight": {
+    "used": [
+      1
+    ],
+    "total": 6
   }
 }
