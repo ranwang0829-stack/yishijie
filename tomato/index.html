@@ -1180,9 +1180,42 @@
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4,.grid-2-4-8{grid-template-columns:1fr}
     .grid-12{grid-template-columns:repeat(6,1fr)}
   }
+
+  /* ============ Mobile Responsive ============ */
+  @media (orientation: portrait) {
+    #rotate-hint {
+      display: flex !important;
+    }
+    #deck { display: none; }
+    #nav { display: none; }
+  }
+  @media (orientation: landscape) {
+    #rotate-hint { display: none !important; }
+    #deck { display: flex !important; }
+    #nav { display: block !important; }
+  }
+  #rotate-hint {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    background: #002FA7;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3vh;
+    font-family: var(--sans),var(--sans-zh);
+    color: #fff;
+  }
+  #rotate-hint .icon { font-size: 12vw; animation: rotate-hint 2s ease-in-out infinite; }
+  @keyframes rotate-hint { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(90deg)} }
+  #rotate-hint .text { font-size: 5vw; font-weight: 200; letter-spacing: .04em; }
+  #rotate-hint .sub { font-size: 3.2vw; font-weight: 300; opacity: .6; }
 </style>
 </head>
 <body class="canvas-mode">
+<div id="rotate-hint">
+  <div class="icon">📱</div>
+  <div class="text">请旋转设备</div>
+  <div class="sub">横屏浏览以获得最佳体验</div>
+</div>
 <script>
   // Windows 平台标记 — 雅黑没有 ExtraLight,需要字重补偿
   if(/Win/i.test(navigator.platform || navigator.userAgentData?.platform || '')){
