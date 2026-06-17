@@ -1190,16 +1190,32 @@
       flex-direction: column !important;
       flex-wrap: nowrap !important;
       transform: none !important;
-      overflow-y: auto !important;
+      overflow-y: visible !important;
       overflow-x: hidden !important;
       transition: none !important;
+      position: relative !important;
+      height: auto !important;
     }
     .slide {
       width: 100vw !important;
       height: auto !important;
-      min-height: 100vh !important;
+      min-height: auto !important;
       flex: none !important;
-      padding: 8vh 6vw 10vh 6vw !important;
+      padding: 6vh 5vw 8vh 5vw !important;
+      overflow: visible !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+    }
+    /* Allow body/html to scroll in portrait */
+    html, body {
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      height: auto !important;
+      position: relative !important;
+    }
+    body {
+      display: block !important;
     }
     /* Nav dots hidden on portrait */
     #nav { display: none !important; }
@@ -1257,7 +1273,7 @@
 
     /* Cards and spacings */
     .card-fill { padding: var(--sp-5) !important; }
-    .canvas-card { padding: 6vh 6vw 8vh 6vw !important; }
+    .canvas-card { padding: 6vh 6vw 8vh 6vw !important; overflow: visible !important; }
 
     /* Timeline adjustments */
     .tl-node {
@@ -1278,6 +1294,26 @@
 
     /* KPI row 4-col → 2-col */
     .kpi-cell .nb { font-size: 6vw !important; }
+
+    /* Ensure ALL slides scroll if needed */
+    .slide * { max-width: 100vw !important; }
+    .cell-6 { grid-template-columns: 1fr !important; }
+    /* KPI numbers readable */
+    .kpi-thin-sm { font-size: 7vw !important; }
+    .kpi-thin-sm .unit { font-size: .35em !important; }
+    /* Timeline v */
+    .tl-node { padding: 2vh 0 !important; }
+    .tl-node .yr { font-size: max(13px, 2.5vw) !important; }
+    .tl-node .desc { font-size: max(14px, 2.6vw) !important; }
+    .tl-node .multi { font-size: max(15px, 3vw) !important; }
+    /* Cards fill vertical */
+    .card-fill, .cell { height: auto !important; min-height: auto !important; }
+    /* Chrome header compact */
+    .chrome-min { margin-bottom: 2vh !important; padding: 0 !important; }
+    .chrome-min .l, .chrome-min .r { font-size: max(10px, 2vw) !important; }
+    /* Ink banner */
+    .ink-banner-full { padding: 2vh 5vw !important; }
+    .ink-banner-full .lead { font-size: max(14px, 2.8vw) !important; }
   }
 </style>
 </head>
