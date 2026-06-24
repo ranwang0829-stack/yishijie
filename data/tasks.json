@@ -726,7 +726,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-06-23T20:39:29.021588",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-06-23T17:30:11.186416",
     "completed_at": null
   },
@@ -743,7 +743,7 @@
     "place": "翠绿公园",
     "npc": "晨练李阿姨",
     "expires_at": "2026-06-23T21:36:10.686894",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-06-23T17:30:11.186731",
     "completed_at": null
   },
@@ -760,7 +760,7 @@
     "place": "星尘咖啡馆",
     "npc": "常客老张",
     "expires_at": "2026-06-23T20:13:35.758564",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-06-23T17:30:11.187030",
     "completed_at": null
   }
