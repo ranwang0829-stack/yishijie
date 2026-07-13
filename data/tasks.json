@@ -403,7 +403,7 @@
     "place": "星尘咖啡馆",
     "npc": "常客老张",
     "expires_at": "2026-07-13T03:16:00.239017",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-13T00:07:08.088023",
     "completed_at": null
   },
@@ -420,7 +420,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-07-13T02:24:25.857682",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-13T00:07:08.088327",
     "completed_at": null
   },
@@ -437,7 +437,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-07-13T03:43:09.934761",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-13T00:07:08.088619",
     "completed_at": null
   }
