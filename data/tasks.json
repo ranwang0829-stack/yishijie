@@ -369,7 +369,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-07-18T07:35:47.930792",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-18T03:34:55.971236",
     "completed_at": null
   },
@@ -386,7 +386,7 @@
     "place": "星尘咖啡馆",
     "npc": "常客老张",
     "expires_at": "2026-07-18T08:09:47.334004",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-18T03:34:55.971548",
     "completed_at": null
   },
