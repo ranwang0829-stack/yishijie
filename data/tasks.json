@@ -420,7 +420,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-18T13:47:56.677868",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-18T10:37:01.950544",
     "completed_at": null
   },
@@ -454,7 +454,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-07-18T12:59:58.427207",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-18T10:37:01.951194",
     "completed_at": null
   }
