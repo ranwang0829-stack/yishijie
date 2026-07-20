@@ -323,7 +323,8 @@
   },
   "npc_spotlight": {
     "used": [
-      2
+      2,
+      3
     ],
     "total": 6
   },
