@@ -324,6 +324,7 @@
   },
   "npc_spotlight": {
     "used": [
+      0,
       2,
       3
     ],
