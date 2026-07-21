@@ -471,7 +471,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-20T22:12:29.407042",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-20T16:20:44.749025",
     "completed_at": null
   },
@@ -488,7 +488,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-20T19:40:52.074599",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-20T16:20:44.749297",
     "completed_at": null
   },
@@ -505,7 +505,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-20T21:25:36.862446",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-20T16:20:44.749523",
     "completed_at": null
   }
