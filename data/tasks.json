@@ -216,7 +216,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-07-23T08:27:38.686724",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-23T04:36:08.171855",
     "completed_at": null
   },
@@ -250,7 +250,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-07-23T08:56:59.456156",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-23T04:36:08.172449",
     "completed_at": null
   }
