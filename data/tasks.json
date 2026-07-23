@@ -233,7 +233,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-23T10:19:52.951562",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-23T04:36:08.172161",
     "completed_at": null
   },
