@@ -250,7 +250,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-07-24T21:39:43.752977",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-24T17:23:23.874600",
     "completed_at": null
   },
@@ -267,7 +267,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-07-24T19:56:56.179100",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-24T17:23:23.874912",
     "completed_at": null
   },
@@ -284,7 +284,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-07-24T19:26:17.469192",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-07-24T17:23:23.875233",
     "completed_at": null
   }
