@@ -301,13 +301,14 @@
   },
   "gen_isekai_recipe": {
     "hashes": [
-      "60fac165befb",
       "d6c411043077",
-      "df5832ed23cd",
-      "6f8b66ccaae1",
       "f4f6b60ed616",
+      "60fac165befb",
+      "6f8b66ccaae1",
+      "1ef1f564dc1b",
       "0e4b1cfc51a6",
-      "072f02d68701"
+      "072f02d68701",
+      "df5832ed23cd"
     ]
   },
   "gen_isekai_motivation": {
