@@ -437,7 +437,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-08-08T14:33:19.414883",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-08T12:04:03.073636",
     "completed_at": null
   },
@@ -454,7 +454,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-08-08T14:33:08.911569",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-08T12:04:03.073932",
     "completed_at": null
   }

@@ -386,6 +386,7 @@
   "npc_spotlight": {
     "used": [
       2,
+      4,
       5
     ],
     "total": 6
