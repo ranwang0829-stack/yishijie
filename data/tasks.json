@@ -539,7 +539,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-08-09T17:31:31.761688",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-09T14:02:39.557763",
     "completed_at": null
   },
