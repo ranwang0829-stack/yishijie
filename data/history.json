@@ -344,14 +344,15 @@
   },
   "gen_isekai_recipe": {
     "hashes": [
-      "072f02d68701",
-      "1ef1f564dc1b",
       "d6c411043077",
       "0e4b1cfc51a6",
-      "6f8b66ccaae1",
       "60fac165befb",
-      "f4f6b60ed616",
-      "df5832ed23cd"
+      "1ef1f564dc1b",
+      "df5832ed23cd",
+      "6f8b66ccaae1",
+      "0d8404e38734",
+      "072f02d68701",
+      "f4f6b60ed616"
     ]
   },
   "gen_isekai_motivation": {
