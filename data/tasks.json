@@ -420,7 +420,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-08-13T19:07:47.332228",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-13T14:41:29.901499",
     "completed_at": null
   },
@@ -437,7 +437,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-08-13T17:54:22.824430",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-13T14:41:29.901824",
     "completed_at": null
   },
@@ -454,7 +454,7 @@
     "place": "翠绿公园",
     "npc": "晨练李阿姨",
     "expires_at": "2026-08-13T19:18:47.299477",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-13T14:41:29.902086",
     "completed_at": null
   }
