@@ -709,7 +709,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-08-16T13:24:22.151092",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-16T09:49:16.717559",
     "completed_at": null
   },
