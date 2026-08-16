@@ -457,6 +457,7 @@
   "bedtime_stories": {
     "used": [
       0,
+      10,
       7
     ],
     "total": 15
