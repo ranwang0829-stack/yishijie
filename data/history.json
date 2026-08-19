@@ -474,7 +474,8 @@
   },
   "place_discovery": {
     "used": [
-      0
+      0,
+      3
     ],
     "total": 4
   },
