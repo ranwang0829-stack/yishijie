@@ -490,6 +490,7 @@
   "npc_spotlight": {
     "used": [
       2,
+      3,
       4
     ],
     "total": 6
