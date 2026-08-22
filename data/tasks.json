@@ -1,22 +1,5 @@
 [
   {
-    "id": "0e2dfbc9",
-    "type": "dialogue",
-    "name": "试炼 圣域 「店主老孙」 (豁然开朗)",
-    "description": "聊聊孙子们的趣事",
-    "condition": "与「店主老孙」完成一次对话",
-    "exp": 20,
-    "gold": 10,
-    "estimated_minutes": 6,
-    "walk_distance_m": 150,
-    "place": "阳光便利店",
-    "npc": "店主老孙",
-    "expires_at": "2026-08-19T19:37:41.222237",
-    "status": "expired",
-    "created_at": "2026-08-19T15:14:50.425544",
-    "completed_at": null
-  },
-  {
     "id": "54dc48d0",
     "type": "dialogue",
     "name": "探索 秘境 「晨练李阿姨」 (小鹿乱撞)",
