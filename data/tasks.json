@@ -1,22 +1,5 @@
 [
   {
-    "id": "3f5d2d85",
-    "type": "explore",
-    "name": "王命 迷宫入口 「公司办公室」 (心头一暖)",
-    "description": "前往「公司办公室」进行探索。日常办公场所",
-    "condition": "到达「公司办公室」并停留至少5分钟",
-    "exp": 25,
-    "gold": 15,
-    "estimated_minutes": 15,
-    "walk_distance_m": 0,
-    "place": "公司办公室",
-    "npc": "同事小美",
-    "expires_at": "2026-08-20T19:21:58.660288",
-    "status": "expired",
-    "created_at": "2026-08-20T15:18:46.704332",
-    "completed_at": null
-  },
-  {
     "id": "a40c6fd2",
     "type": "dialogue",
     "name": "探索 传送点 「同事小美」 (小鹿乱撞)",
