@@ -114,7 +114,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-08-30T13:59:50.102275",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-30T10:06:01.447519",
     "completed_at": null
   },
@@ -131,7 +131,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-08-30T14:18:51.431008",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-30T10:06:01.447730",
     "completed_at": null
   },
@@ -148,7 +148,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-08-30T14:42:57.137727",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-08-30T10:06:01.447925",
     "completed_at": null
   }
