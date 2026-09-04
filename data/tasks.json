@@ -216,7 +216,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-09-03T19:21:22.119115",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-03T17:18:23.206221",
     "completed_at": null
   },
@@ -233,7 +233,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-09-03T21:34:12.981338",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-03T17:18:23.206561",
     "completed_at": null
   },
@@ -250,7 +250,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-09-03T22:06:01.428470",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-03T17:18:23.206864",
     "completed_at": null
   }
