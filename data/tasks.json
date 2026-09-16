@@ -369,7 +369,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-09-16T08:45:05.677137",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-16T02:47:39.833122",
     "completed_at": null
   },
@@ -386,7 +386,7 @@
     "place": "星尘咖啡馆",
     "npc": "常客老张",
     "expires_at": "2026-09-16T08:47:19.910268",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-16T02:47:39.833462",
     "completed_at": null
   },
