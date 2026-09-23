@@ -539,7 +539,7 @@
     "place": "翠绿公园",
     "npc": "晨练李阿姨",
     "expires_at": "2026-09-23T13:26:20.057246",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-23T11:26:02.045668",
     "completed_at": null
   },
@@ -556,7 +556,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-09-23T13:43:15.446027",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-09-23T11:26:02.045970",
     "completed_at": null
   }
