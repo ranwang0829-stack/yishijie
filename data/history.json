@@ -488,20 +488,20 @@
   },
   "gen_isekai_recipe": {
     "hashes": [
-      "072f02d68701",
-      "0d8404e38734",
-      "4e7c37d7b715",
-      "e33a1a1c597f",
-      "f4f6b60ed616",
-      "1ef1f564dc1b",
       "60fac165befb",
-      "6f8b66ccaae1",
-      "d6c411043077",
-      "e87a7eb990e2",
-      "4dfd016835c6",
       "df5832ed23cd",
+      "e87a7eb990e2",
+      "6f8b66ccaae1",
+      "1ef1f564dc1b",
+      "e33a1a1c597f",
+      "4dfd016835c6",
+      "0d8404e38734",
+      "d6c411043077",
       "0e4b1cfc51a6",
-      "399fb03df750"
+      "f4f6b60ed616",
+      "399fb03df750",
+      "4e7c37d7b715",
+      "072f02d68701"
     ]
   },
   "gen_isekai_motivation": {
