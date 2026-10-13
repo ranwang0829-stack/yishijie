@@ -165,7 +165,7 @@
     "place": "公司办公室",
     "npc": "同事小美",
     "expires_at": "2026-10-12T20:52:48.009551",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-10-12T17:47:27.424382",
     "completed_at": null
   },
@@ -182,7 +182,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-10-12T20:15:20.534219",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-10-12T17:47:27.424560",
     "completed_at": null
   },
@@ -199,7 +199,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-10-12T22:57:30.699312",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-10-12T17:47:27.424707",
     "completed_at": null
   }
