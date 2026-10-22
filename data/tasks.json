@@ -488,7 +488,7 @@
     "place": "星尘咖啡馆",
     "npc": "常客老张",
     "expires_at": "2026-10-22T13:53:30.398830",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-10-22T10:18:46.453364",
     "completed_at": null
   },
@@ -505,7 +505,7 @@
     "place": "阳光便利店",
     "npc": "店主老孙",
     "expires_at": "2026-10-22T13:34:51.324681",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-10-22T10:18:46.453594",
     "completed_at": null
   }
