@@ -216,7 +216,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-11-05T20:16:33.000434",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-05T16:45:18.595277",
     "completed_at": null
   },
@@ -233,7 +233,7 @@
     "place": "翠绿公园",
     "npc": "晨练李阿姨",
     "expires_at": "2026-11-05T22:08:46.415569",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-05T16:45:18.595431",
     "completed_at": null
   },
@@ -250,7 +250,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-11-05T21:50:28.954686",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-05T16:45:18.595564",
     "completed_at": null
   }
