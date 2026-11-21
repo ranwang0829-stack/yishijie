@@ -131,7 +131,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-11-21T07:25:06.779264",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-21T02:51:09.568861",
     "completed_at": null
   },
@@ -148,7 +148,7 @@
     "place": "翠绿公园",
     "npc": "遛狗少年阿杰",
     "expires_at": "2026-11-21T08:18:46.511257",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-21T02:51:09.569149",
     "completed_at": null
   },
@@ -165,7 +165,7 @@
     "place": "星尘咖啡馆",
     "npc": "咖啡师小王",
     "expires_at": "2026-11-21T07:04:20.137230",
-    "status": "active",
+    "status": "expired",
     "created_at": "2026-11-21T02:51:09.569452",
     "completed_at": null
   }
